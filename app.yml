@@ -1,0 +1,154 @@
+# yaml-language-server: $schema=https://schemas.pennsieve.io/app-manifest/v1.json
+schemaVersion: "1.0"
+application:
+  name: Spatial Transcriptomics Report
+  description: >-
+    The last step of the three spatial transcriptomics workflows (Spatial Domain Mapping &
+    Condition Comparison; Cell-type Deconvolution & Niches; Single-cell Spatial Profiling). It
+    reads whatever upstream outputs it is given (st-prep metadata, st-qc QC, st-domains domains,
+    st-svg spatially variable genes, st-compare condition comparisons, cell2location
+    abundances, st-celltype cell types, st-niches neighbourhoods and niches, st-ccc cell-cell
+    communication) and writes one offline HTML report a biologist can read: study design, QC,
+    spatial domains, spatially variable genes, condition comparison, cell types, spatial
+    organisation, cell-cell communication, and methods with every step's version, parameters and
+    verified citations from its provenance; plus the summary tables. The text states
+    observations backed by numbers, with the caveats each method comes with (few sections per
+    group, heuristic marker-based labels, significant but tiny spatial effects, small panels).
+    Every input is optional.
+  type: processor
+  tags:
+    - spatial-transcriptomics
+    - transcriptomics
+    - genomics
+    - single-cell
+    - visium
+    - xenium
+    - merscope
+    - cosmx
+    - report
+    - quality-control
+    - differential-expression
+    - deconvolution
+    - cell-typing
+    - cell-cell-communication
+runtime:
+  cpu: 1024
+  # Measured (linux/amd64 under emulation on an M-series Mac, 1 CPU, --memory 3g): 150-200 MB
+  # peak (cgroup memory.peak) on the demo outputs; the report reads summary tables only, never
+  # per-observation files, so memory does not grow with the number of spots or cells. 2048 is the
+  # smallest Fargate size for 1 vCPU; see README "Runtime".
+  memory: 2048
+  # standard (ECS) by default; a workflow can run this light step as a Lambda function instead
+  # (the image serves both, see processor/entry.py). Image 541 MB.
+  computeTypes:
+    - standard
+    - lambda
+  timeoutSeconds: 600
+parameters:
+  - name: REPORT_TITLE
+    type: string
+    description: Title of the report page.
+    defaultValue: "Spatial Transcriptomics Report"
+  - name: FDR
+    type: number
+    description: >-
+      False discovery rate for what the report counts and lists as significant (composition
+      tests, pseudobulk DE, spatially variable genes), applied to the adjusted p-values the
+      upstream steps wrote. Display only; the upstream tables are not changed.
+    defaultValue: 0.05
+    min: 0
+    max: 1
+  - name: MAX_ITEMS
+    type: integer
+    description: Rows per top-N table (consensus genes, DE genes, interactions, ...).
+    defaultValue: 20
+    min: 1
+  - name: MAX_FIGURES
+    type: integer
+    description: >-
+      Figures per section (per LABEL for comparisons, niches and communication), the report's own
+      included; further upstream figures are left out of the page (they stay in the upstream
+      output) and the page says how many.
+    defaultValue: 12
+    min: 1
+# Each input in its own folder (placement: subfolder) when linked; without links the files are
+# found by name anywhere under INPUT_DIR. compare, niches and ccc may each receive several links
+# (one <LABEL>/ folder each).
+inputs:
+  - name: metadata
+    description: st-prep's metadata output (samples.csv, prep.json, provenance.json); study design, platform, conditions.
+    mediaTypes: [text/csv, application/json]
+    placement: subfolder
+    required: false
+  - name: qc
+    description: st-qc's qc output (qc_summary.csv, thresholds.csv, <sample_id>_qc.png, <sample_id>_spatial_counts.png, summary.json, provenance.json).
+    mediaTypes: [text/csv, image/png, application/json]
+    placement: subfolder
+    required: false
+  - name: domains
+    description: >-
+      st-domains' labels output (domain_summary.csv, domain_markers.csv, agreement.csv,
+      annotation_match.csv, figures/*.png, summary.json, provenance.json; labels.csv is not read).
+    mediaTypes: [text/csv, image/png, application/json]
+    placement: subfolder
+    required: false
+  - name: svg
+    description: st-svg's output (svg.csv, svg_consensus.csv, summary.json, figures, provenance.json).
+    mediaTypes: [text/csv, image/png, application/json]
+    placement: subfolder
+    required: false
+  - name: compare
+    description: >-
+      st-compare outputs, one <LABEL>/ folder each (composition_tests.csv, de_summary.csv, de.csv,
+      summary.json, composition.png, de_heatmap.png, volcano_*.png, provenance.json).
+    mediaTypes: [text/csv, image/png, application/json]
+    placement: subfolder
+    required: false
+  - name: deconvolution
+    description: >-
+      cell2location's labels output (type_summary.csv, colocation.csv, summary.json, figures/*.png,
+      provenance.json; abundance.csv and labels.csv are not read).
+    mediaTypes: [text/csv, image/png, application/json]
+    placement: subfolder
+    required: false
+  - name: celltype
+    description: st-celltype's labels output (cluster_annotation.csv, cell_type_summary.csv, cluster_markers.csv, summary.json, provenance.json).
+    mediaTypes: [text/csv, application/json]
+    placement: subfolder
+    required: false
+  - name: celltype-figures
+    description: st-celltype's figures output (umap_*.png, <sample_id>_cell_type.png, cell_type_by_sample.png, dotplot_marker_sets.png).
+    mediaTypes: [image/png, application/json]
+    placement: subfolder
+    required: false
+  - name: niches
+    description: >-
+      st-niches outputs, one <LABEL>/ folder each (nhood_enrichment.csv, niche_composition.csv,
+      niche_summary.csv, summary.json, figures, provenance.json).
+    mediaTypes: [text/csv, image/png, application/json]
+    placement: subfolder
+    required: false
+  - name: ccc
+    description: >-
+      st-ccc outputs, one <LABEL>/ folder each (lr_consensus.csv, lr_spatial.csv, summary.json,
+      figures, provenance.json).
+    mediaTypes: [text/csv, image/png, application/json]
+    placement: subfolder
+    required: false
+# Two outputs: each is written to its own folder, OUTPUT_DIR/<name>/.
+outputs:
+  - name: report
+    description: >-
+      index.html with figures/*.png (the report's own and copies of upstream figures) and
+      provenance.json. Self-contained: no scripts, no external resources; open index.html from
+      the folder.
+    mediaTypes: [text/html, image/png, application/json]
+  - name: tables
+    description: >-
+      The tables the page shows, as CSV (samples, qc, domains, domain_coverage, domain_agreement,
+      svg_samples, svg_consensus, composition_tests, de_summary, de_top_genes, cell_types,
+      clusters, deconvolution_composition, deconvolution_types, niches, neighbourhood_enrichment,
+      ccc_top, ccc_spatial, methods, citations; each only when its section has inputs),
+      summary.json (every headline number, observation and caveat of the page) and
+      provenance.json.
+    mediaTypes: [text/csv, application/json]

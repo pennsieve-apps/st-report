@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spatial Transcriptomics Report</title>
+<style>
+  :root { color-scheme: light; }
+  body { margin: 0; padding: 24px 16px 48px; background: #f9f9f7; color: #0b0b0b;
+         font-family: system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 15px; line-height: 1.5; }
+  main { max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  h2 { font-size: 1.2rem; margin: 40px 0 10px; padding-top: 8px; border-top: 1px solid #e1e0d9; }
+  h3 { font-size: 1rem; margin: 22px 0 6px; }
+  .sub { color: #52514e; margin: 0 0 14px; }
+  .muted { color: #898781; }
+  nav { font-size: 14px; margin: 10px 0 18px; }
+  nav a { margin-right: 14px; white-space: nowrap; }
+  .card { background: #fcfcfb; border: 1px solid rgba(11,11,11,0.10); border-radius: 8px; padding: 12px 16px; margin: 12px 0; }
+  ul.obs { margin: 6px 0; padding-left: 20px; } ul.obs li { margin: 3px 0; }
+  .caveats { background: #fff7df; border: 1px solid #fab219; border-radius: 6px; padding: 8px 12px; font-size: 14px; margin: 10px 0; }
+  .caveats strong { display: block; margin-bottom: 2px; }
+  .caveats ul { margin: 4px 0; padding-left: 20px; }
+  .error { background: #fbe3e3; border: 1px solid #d03b3b; border-radius: 6px; padding: 8px 12px; font-size: 14px; }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  th, td { text-align: left; padding: 4px 8px; border-bottom: 1px solid #e1e0d9; vertical-align: top; }
+  th { color: #52514e; font-weight: 600; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .wrap { overflow-x: auto; }
+  .flag { display: inline-block; padding: 0 7px; border-radius: 10px; font-size: 12px; white-space: nowrap;
+          background: #fbe3e3; color: #7a1f1f; border: 1px solid #d03b3b; }
+  .tag { display: inline-block; padding: 0 6px; border-radius: 4px; font-size: 12px; background: #e1e0d9; color: #0b0b0b; }
+  .up { color: #1c5cab; } .down { color: #a33b13; }
+  figure { margin: 14px 0; }
+  figure img { max-width: 100%; height: auto; display: block; background: #fcfcfb; border: 1px solid #e1e0d9; border-radius: 6px; }
+  figcaption { color: #52514e; font-size: 13px; margin-top: 4px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; }
+  .kv { display: grid; grid-template-columns: max-content 1fr; gap: 2px 14px; font-size: 14px; }
+  .kv dt { color: #52514e; } .kv dd { margin: 0; }
+  .small { font-size: 12.5px; }
+  details summary { cursor: pointer; color: #1c5cab; }
+  code { font-size: 12.5px; background: #f0efec; padding: 0 3px; border-radius: 3px; word-break: break-word; }
+  a { color: #1c5cab; }
+  ol.refs li { margin: 3px 0; }
+  footer { margin-top: 40px; color: #898781; font-size: 13px; }
+</style>
+</head>
+<body>
+<main>
+<h1>Spatial Transcriptomics Report</h1>
+<p class="sub">
+Spatial Domain Mapping &amp; Condition Comparison. 4 samples (Visium), condition: ctrl, treat.   Generated 2026-01-02T03:04:05+00:00. Research use; observations describe the data and are not clinical findings.
+</p>
+<nav>
+<a href="#design">Study design</a><a href="#qc">QC</a><a href="#domains">Spatial domains</a><a href="#svg">Spatially variable genes</a><a href="#compare">Condition comparison</a>  <a href="#methods">Methods</a>
+  <a href="#citations">Citations</a>
+  <a href="#data">Input data</a>
+</nav>
+
+
+
+
+<h2 id="design">Study design</h2>
+<ul class="obs"><li>4 samples, Visium: 2,300 spots in all (500–650 per sample), 2,000 genes.</li><li>Conditions (column &#39;condition&#39;): ctrl (2 samples) and treat (2 samples).</li><li>A user annotation (annotations.csv) labels 1,200 spots in 4 samples.</li></ul>
+<div class="caveats"><strong>Keep in mind</strong><ul><li>ctrl has only 2 sample(s). Tests between conditions use the sample as the replicate, so with this few sections only large, consistent differences can be detected.</li><li>Every &#39;donor&#39; value occurs in one condition level only, so condition and donor are confounded: a difference between conditions can be a difference between donors.</li><li>Visium spots (55 µm) each hold several cells (typically 1–10): expression, domains and spatially variable genes describe spot mixtures, not single cells.</li></ul></div>
+<table style="width:auto"><tr><th>condition</th><th class="num">samples</th></tr>
+<tr><td>ctrl</td><td class="num">2</td></tr><tr><td>treat</td><td class="num">2</td></tr></table>
+<details open><summary>All 4 samples</summary>
+<div class="wrap"><table>
+  <tr><th>sample_id</th><th>platform</th><th>kind</th><th class="num">n_obs</th><th class="num">n_genes</th><th class="num">n_obs_in_tissue</th><th>condition</th><th>donor</th></tr>
+<tr><td>s1</td><td>visium</td><td>spot</td><td class="num">500</td><td class="num">2,000</td><td class="num">500</td><td>ctrl</td><td>d1</td></tr><tr><td>s2</td><td>visium</td><td>spot</td><td class="num">550</td><td class="num">2,000</td><td class="num">550</td><td>ctrl</td><td>d2</td></tr><tr><td>s3</td><td>visium</td><td>spot</td><td class="num">600</td><td class="num">2,000</td><td class="num">600</td><td>treat</td><td>d3</td></tr><tr><td>s4</td><td>visium</td><td>spot</td><td class="num">650</td><td class="num">2,000</td><td class="num">650</td><td>treat</td><td>d4</td></tr></table></div></details>
+<p class="small muted">Coordinates in pixels; 4 sample(s) with a registered H&amp;E image.</p>
+<h2 id="qc">Quality control</h2>
+<ul class="obs"><li>QC removed 50 of 2,300 spots (2.2%); per sample 0.36% (s2) to 6.7% (s3).</li><li>Failing each test: low counts 46 and few genes 50 (one observation can fail several).</li><li>s3 lost more than the others: 6.7% against a median of 0.73%.</li><li>Median counts per spot after QC range from 500 (s1) to 4,000 (s2), a 8-fold difference in depth.</li><li>Genes detected in too few observations were dropped per sample (100–130), so samples keep different gene sets; steps that combine samples use the genes shared by all.</li></ul>
+<div class="caveats"><strong>Keep in mind</strong><ul><li>Samples differ several-fold in sequencing depth or capture; normalization scales library size per observation but does not equalize detection of weakly expressed genes. Weigh depth before reading differences between samples.</li><li>Thresholds adapt to each sample (5.0 MADs from its own median on the log scale): a sample that is poor throughout keeps most of its observations. Its medians in the table below are where to notice it.</li></ul></div>
+<figure><a href="figures/qc_overview.png"><img src="figures/qc_overview.png" alt="Left: share of each sample&#39;s spots removed by QC. Right: median counts per observation after QC (sequencing depth / capture). Colour = condition."></a><figcaption>Left: share of each sample&#39;s spots removed by QC. Right: median counts per observation after QC (sequencing depth / capture). Colour = condition.</figcaption></figure>
+<div class="wrap"><table>
+  <tr><th>sample</th><th>condition</th><th class="num">before</th><th class="num">after</th><th class="num">removed</th>
+    <th class="num">low counts</th><th class="num">few genes</th><th class="num">mito</th><th class="num">control</th>
+    <th class="num">median counts</th><th class="num">median genes</th><th class="num">cut: counts / genes</th><th class="num">genes kept</th><th>status</th></tr>
+<tr><td>s1</td><td>ctrl</td>    <td class="num">500</td><td class="num">495</td><td class="num">1.0%</td>
+    <td class="num">4</td><td class="num">5</td><td class="num">0</td><td class="num">0</td>
+    <td class="num">500</td><td class="num">300</td>
+    <td class="num">100 / 80.0</td><td class="num">1,900</td>
+    <td>ok</td></tr><tr><td>s2</td><td>ctrl</td>    <td class="num">550</td><td class="num">548</td><td class="num">0.4%</td>
+    <td class="num">1</td><td class="num">2</td><td class="num">0</td><td class="num">0</td>
+    <td class="num">4,000</td><td class="num">300</td>
+    <td class="num">100 / 80.0</td><td class="num">1,890</td>
+    <td>ok</td></tr><tr><td>s3</td><td>treat</td>    <td class="num">600</td><td class="num">560</td><td class="num">6.7%</td>
+    <td class="num">39</td><td class="num">40</td><td class="num">0</td><td class="num">0</td>
+    <td class="num">800</td><td class="num">300</td>
+    <td class="num">100 / 80.0</td><td class="num">1,880</td>
+    <td>ok</td></tr><tr><td>s4</td><td>treat</td>    <td class="num">650</td><td class="num">647</td><td class="num">0.5%</td>
+    <td class="num">2</td><td class="num">3</td><td class="num">0</td><td class="num">0</td>
+    <td class="num">1,200</td><td class="num">300</td>
+    <td class="num">100 / 80.0</td><td class="num">1,870</td>
+    <td>ok</td></tr></table></div>
+<p class="small muted">Filter mode mad. "Cut" = the sample's thresholds (observations below them were removed); one observation can fail several tests.</p>
+<h3>Per-sample QC figures (st-qc)</h3><div class="grid"><figure><a href="figures/qc_s1_qc.png"><img src="figures/qc_s1_qc.png" alt="s1: QC metrics" loading="lazy"></a><figcaption>s1: QC metrics</figcaption></figure><figure><a href="figures/qc_s1_spatial_counts.png"><img src="figures/qc_s1_spatial_counts.png" alt="s1: counts on the tissue, kept and removed" loading="lazy"></a><figcaption>s1: counts on the tissue, kept and removed</figcaption></figure><figure><a href="figures/qc_s2_qc.png"><img src="figures/qc_s2_qc.png" alt="s2: QC metrics" loading="lazy"></a><figcaption>s2: QC metrics</figcaption></figure><figure><a href="figures/qc_s2_spatial_counts.png"><img src="figures/qc_s2_spatial_counts.png" alt="s2: counts on the tissue, kept and removed" loading="lazy"></a><figcaption>s2: counts on the tissue, kept and removed</figcaption></figure><figure><a href="figures/qc_s3_qc.png"><img src="figures/qc_s3_qc.png" alt="s3: QC metrics" loading="lazy"></a><figcaption>s3: QC metrics</figcaption></figure><figure><a href="figures/qc_s3_spatial_counts.png"><img src="figures/qc_s3_spatial_counts.png" alt="s3: counts on the tissue, kept and removed" loading="lazy"></a><figcaption>s3: counts on the tissue, kept and removed</figcaption></figure><figure><a href="figures/qc_s4_qc.png"><img src="figures/qc_s4_qc.png" alt="s4: QC metrics" loading="lazy"></a><figcaption>s4: QC metrics</figcaption></figure><figure><a href="figures/qc_s4_spatial_counts.png"><img src="figures/qc_s4_spatial_counts.png" alt="s4: counts on the tissue, kept and removed" loading="lazy"></a><figcaption>s4: counts on the tissue, kept and removed</figcaption></figure></div>
+<h2 id="domains">Spatial domains</h2>
+<ul class="obs"><li>BANKSY found 4 domains (λ = 0.8, resolution 0.2, harmony integration); 3 are present (≥ 20 spots) in at least two samples, 3 in all 4.</li><li>Confined to a single sample: D04.</li><li>D01 covers 43% of all spots (markers SFTPB, SFTPC, NAPSA).</li><li>D02 covers 33% of all spots (markers IGHG1, IGKC, JCHAIN).</li><li>D03 covers 22% of all spots (markers COL1A1, DCN, LUM).</li><li>Present in one condition only: D04 (treat: s3).</li><li>Agreement with the user annotation: ARI 0.35, NMI 0.42 pooled; per sample ARI 0.26 (s3) to 0.58 (s2), over 1,200 annotated spots (Unassigned left out).</li><li>Best-matching domains: TLS → D02 (precision 0.25, recall 0.75).</li><li>No domain matches Tumor well (best F1 below 0.3).</li></ul>
+<div class="caveats"><strong>Keep in mind</strong><ul><li>ARI rewards getting the large classes right, not small structures; a modest ARI is expected when the annotation has a few coarse classes and many unannotated spots.</li><li>Domains are clusters, not anatomy: BANKSY makes clusters spatially smooth but does not know what a structure is. One region can split over several domains and a domain can mix tissues that share a neighbourhood profile; look at the maps and markers before naming them.</li><li>Harmony removed differences between samples before clustering, including real ones: a region that exists in only some sections, or that a condition changes, can be pulled into another domain.</li><li>With λ = 0.8 the neighbourhood dominates: structures only a few spots across are smoothed into their surroundings, and boundaries between regions can form thin domains of their own.</li></ul></div>
+<figure><a href="figures/domain_coverage.png"><img src="figures/domain_coverage.png" alt="Domains × samples: % of each sample&#39;s spots in each domain, samples grouped by condition."></a><figcaption>Domains × samples: % of each sample&#39;s spots in each domain, samples grouped by condition.</figcaption></figure>
+<h3>Domains</h3>
+<div class="wrap"><table>
+  <tr><th>domain</th><th class="num">spots</th><th class="num">share</th><th class="num">samples (≥ 20)</th><th>conditions</th><th>top markers</th></tr>
+<tr><td><strong>D01</strong></td><td class="num">800</td><td class="num">43%</td>
+    <td class="num">4</td><td>ctrl, treat</td><td class="small">SFTPB, SFTPC, NAPSA</td></tr><tr><td><strong>D02</strong></td><td class="num">600</td><td class="num">33%</td>
+    <td class="num">4</td><td>ctrl, treat</td><td class="small">IGHG1, IGKC, JCHAIN</td></tr><tr><td><strong>D03</strong></td><td class="num">400</td><td class="num">22%</td>
+    <td class="num">4</td><td>ctrl, treat</td><td class="small">COL1A1, DCN, LUM</td></tr><tr><td><strong>D04</strong></td><td class="num">40</td><td class="num">2.2%</td>
+    <td class="num">1</td><td>treat</td><td class="small">KRT5, KRT14, S100A2</td></tr></table></div>
+<p class="small muted">Genes: 1800 highly variable genes from st-qc.</p><h3>Agreement with the annotation</h3>
+<div class="grid">
+<div><table>
+  <tr><th>sample</th><th class="num">ARI</th><th class="num">NMI</th><th class="num">annotated spots</th></tr>
+<tr><td>s1</td><td class="num">0.40</td><td class="num">0.40</td><td class="num">300</td></tr><tr><td>s2</td><td class="num">0.58</td><td class="num">0.40</td><td class="num">300</td></tr><tr><td>s3</td><td class="num">0.26</td><td class="num">0.40</td><td class="num">300</td></tr><tr><td>s4</td><td class="num">0.58</td><td class="num">0.40</td><td class="num">300</td></tr>  <tr><th>pooled</th><th class="num">0.35</th><th class="num">0.42</th><th class="num">1,200</th></tr>
+</table></div>
+<div><table>
+  <tr><th>annotation</th><th>best domain</th><th class="num">precision</th><th class="num">recall</th><th class="num">F1</th></tr>
+<tr><td>TLS</td><td>D02</td><td class="num">0.25</td><td class="num">0.75</td><td class="num">0.38</td></tr><tr><td>Tumor</td><td>D04</td><td class="num">0.95</td><td class="num">0.10</td><td class="num">0.17</td></tr></table><p class="small muted">Precision = share of the domain that carries the annotation; recall = share of the annotation that falls in the domain.</p></div></div>
+<h3>Figures (st-domains)</h3><div class="grid"><figure><a href="figures/domains_umap.png"><img src="figures/domains_umap.png" alt="UMAP of the BANKSY embedding, by domain, sample and annotation" loading="lazy"></a><figcaption>UMAP of the BANKSY embedding, by domain, sample and annotation</figcaption></figure><figure><a href="figures/domains_markers_dotplot.png"><img src="figures/domains_markers_dotplot.png" alt="Top marker genes per domain" loading="lazy"></a><figcaption>Top marker genes per domain</figcaption></figure><figure><a href="figures/domains_confusion.png"><img src="figures/domains_confusion.png" alt="Annotation × domain" loading="lazy"></a><figcaption>Annotation × domain</figcaption></figure><figure><a href="figures/domains_domain_composition.png"><img src="figures/domains_domain_composition.png" alt="Domain fractions per sample" loading="lazy"></a><figcaption>Domain fractions per sample</figcaption></figure><figure><a href="figures/domains_s1_domains.png"><img src="figures/domains_s1_domains.png" alt="s1: domains" loading="lazy"></a><figcaption>s1: domains</figcaption></figure><figure><a href="figures/domains_s2_domains.png"><img src="figures/domains_s2_domains.png" alt="s2: domains" loading="lazy"></a><figcaption>s2: domains</figcaption></figure><figure><a href="figures/domains_s3_domains.png"><img src="figures/domains_s3_domains.png" alt="s3: domains" loading="lazy"></a><figcaption>s3: domains</figcaption></figure><figure><a href="figures/domains_s4_domains.png"><img src="figures/domains_s4_domains.png" alt="s4: domains" loading="lazy"></a><figcaption>s4: domains</figcaption></figure></div>
+<h2 id="svg">Spatially variable genes</h2>
+<ul class="obs"><li>Spatially variable genes (Moran&#39;s I, FDR 0.05) per sample: 13 (s4) to 19 (s3) of the 64 genes tested in each.</li><li>41 of 64 genes tested are significant in at least one sample, 3 in all 4.</li><li>Most consistently spatially variable: COL1A1 (4/4, mean I 0.45), IGHG1 (4/4, mean I 0.43), SFTPB (4/4, mean I 0.43), G036 (3/4, mean I 0.03), G049 (3/4, mean I 0.02), G028 (2/4, mean I 0.03), G027 (2/4, mean I 0.03) and G047 (2/4, mean I 0.03) (significant in / tested in samples).</li><li>4 of the top 20 are also top-10 markers of a domain or cluster, e.g. COL1A1 (D03), IGHG1 (D02), SFTPB (D01) and KRT5 (D04): their spatial pattern largely follows where that region or cell type lies.</li><li>79% of the significant gene × sample results have I &lt; 0.05: statistically detectable, but a weak pattern.</li></ul>
+<div class="caveats"><strong>Keep in mind</strong><ul><li>Significance is not effect size: with thousands of spots the analytic test calls genes with I of 0.02–0.03 significant. Read I and the rank, not only the count of significant genes.</li><li>In spot data a gene is spatially variable mostly because the cells expressing it are arranged in space (immunoglobulins follow plasma cells); this does not separate composition from regulation within a cell type.</li><li>Moran&#39;s I depends on the neighbour graph and density: compare values between samples only when they were built the same way. It measures one global pattern; a gene patterned in a small region of a large section scores low.</li></ul></div>
+<div class="grid">
+<div class="wrap"><h3>Per sample</h3><table>
+  <tr><th>sample</th><th class="num">tested</th><th class="num">significant</th><th class="num">median I</th><th>top genes</th></tr>
+<tr><td>s1</td><td class="num">64</td><td class="num">14 <span class="muted small">(22%)</span></td>
+    <td class="num">0.017</td><td class="small">COL1A1, SFTPB, IGHG1, G051, G012, G021</td></tr><tr><td>s2</td><td class="num">64</td><td class="num">15 <span class="muted small">(23%)</span></td>
+    <td class="num">0.015</td><td class="small">SFTPB, COL1A1, IGHG1, G022, G050, G008</td></tr><tr><td>s3</td><td class="num">64</td><td class="num">19 <span class="muted small">(30%)</span></td>
+    <td class="num">0.020</td><td class="small">COL1A1, IGHG1, KRT5, SFTPB, G036, G017</td></tr><tr><td>s4</td><td class="num">64</td><td class="num">13 <span class="muted small">(20%)</span></td>
+    <td class="num">0.012</td><td class="small">IGHG1, SFTPB, COL1A1, G026, G028, G014</td></tr></table></div>
+<div class="wrap"><h3>Consensus (top 20)</h3><table>
+  <tr><th>gene</th><th class="num">significant / tested in</th><th class="num">mean I</th><th class="num">median rank</th><th>top-10 marker of</th></tr>
+<tr><td><strong>COL1A1</strong></td><td class="num">4 / 4</td><td class="num">0.447</td><td class="num">2</td><td class="small">D03</td></tr><tr><td><strong>IGHG1</strong></td><td class="num">4 / 4</td><td class="num">0.434</td><td class="num">2</td><td class="small">D02</td></tr><tr><td><strong>SFTPB</strong></td><td class="num">4 / 4</td><td class="num">0.433</td><td class="num">2</td><td class="small">D01</td></tr><tr><td><strong>G036</strong></td><td class="num">3 / 4</td><td class="num">0.026</td><td class="num">9</td><td class="small"></td></tr><tr><td><strong>G049</strong></td><td class="num">3 / 4</td><td class="num">0.024</td><td class="num">15</td><td class="small"></td></tr><tr><td><strong>G028</strong></td><td class="num">2 / 4</td><td class="num">0.029</td><td class="num">18</td><td class="small"></td></tr><tr><td><strong>G027</strong></td><td class="num">2 / 4</td><td class="num">0.026</td><td class="num">18</td><td class="small"></td></tr><tr><td><strong>G047</strong></td><td class="num">2 / 4</td><td class="num">0.026</td><td class="num">16</td><td class="small"></td></tr><tr><td><strong>G014</strong></td><td class="num">2 / 4</td><td class="num">0.024</td><td class="num">24</td><td class="small"></td></tr><tr><td><strong>G058</strong></td><td class="num">2 / 4</td><td class="num">0.023</td><td class="num">21</td><td class="small"></td></tr><tr><td><strong>G021</strong></td><td class="num">2 / 4</td><td class="num">0.019</td><td class="num">26</td><td class="small"></td></tr><tr><td><strong>G018</strong></td><td class="num">2 / 4</td><td class="num">0.016</td><td class="num">28</td><td class="small"></td></tr><tr><td><strong>KRT5</strong></td><td class="num">1 / 4</td><td class="num">0.129</td><td class="num">26</td><td class="small">D04</td></tr><tr><td><strong>G048</strong></td><td class="num">1 / 4</td><td class="num">0.023</td><td class="num">19</td><td class="small"></td></tr><tr><td><strong>G004</strong></td><td class="num">1 / 4</td><td class="num">0.023</td><td class="num">22</td><td class="small"></td></tr><tr><td><strong>G017</strong></td><td class="num">1 / 4</td><td class="num">0.021</td><td class="num">26</td><td class="small"></td></tr><tr><td><strong>G046</strong></td><td class="num">1 / 4</td><td class="num">0.021</td><td class="num">28</td><td class="small"></td></tr><tr><td><strong>G034</strong></td><td class="num">1 / 4</td><td class="num">0.019</td><td class="num">26</td><td class="small"></td></tr><tr><td><strong>G022</strong></td><td class="num">1 / 4</td><td class="num">0.019</td><td class="num">32</td><td class="small"></td></tr><tr><td><strong>G045</strong></td><td class="num">1 / 4</td><td class="num">0.019</td><td class="num">24</td><td class="small"></td></tr></table></div></div>
+<h3>Figures (st-svg)</h3><div class="grid"><figure><a href="figures/svg_consensus_top.png"><img src="figures/svg_consensus_top.png" alt="Consensus genes × samples: Moran&#39;s I, dot = significant" loading="lazy"></a><figcaption>Consensus genes × samples: Moran&#39;s I, dot = significant</figcaption></figure><figure><a href="figures/svg_morans_distribution.png"><img src="figures/svg_morans_distribution.png" alt="Moran&#39;s I of every tested gene per sample" loading="lazy"></a><figcaption>Moran&#39;s I of every tested gene per sample</figcaption></figure><figure><a href="figures/svg_s1_svg_top.png"><img src="figures/svg_s1_svg_top.png" alt="s1: top spatially variable genes" loading="lazy"></a><figcaption>s1: top spatially variable genes</figcaption></figure><figure><a href="figures/svg_s2_svg_top.png"><img src="figures/svg_s2_svg_top.png" alt="s2: top spatially variable genes" loading="lazy"></a><figcaption>s2: top spatially variable genes</figcaption></figure><figure><a href="figures/svg_s3_svg_top.png"><img src="figures/svg_s3_svg_top.png" alt="s3: top spatially variable genes" loading="lazy"></a><figcaption>s3: top spatially variable genes</figcaption></figure><figure><a href="figures/svg_s4_svg_top.png"><img src="figures/svg_s4_svg_top.png" alt="s4: top spatially variable genes" loading="lazy"></a><figcaption>s4: top spatially variable genes</figcaption></figure></div>
+<h2 id="compare">Condition comparison</h2>
+<h3>domain: treat vs ctrl <span class="muted small">(condition; ctrl 2 and treat 2 samples)</span></h3>
+<ul class="obs"><li>Composition (treat vs ctrl): 1 label of 4 differ at FDR 0.05: D02 30% → 45% (adj. p 0.004).</li><li>Pseudobulk DE (treat vs ctrl): 12 significant gene × label results at FDR 0.05 over 3 tested labels; most in D01 (4: 3 up, 1 down in treat).</li><li>Not tested (1 label): D04 (reference level &#39;ctrl&#39; has fewer than 2 pseudobulks).</li><li>3 genes change the same way in at least 3 of the 3 tested labels (up: IFI6, ISG15; down: CRYAB): a shift of the whole tissue between conditions rather than of one region or cell type.</li></ul>
+<div class="caveats"><strong>Keep in mind</strong><ul><li>The sample is the replicate (ctrl 2 and treat 2 samples). With this few, only large and consistent changes are detectable, and the rank test cannot reach significance in small designs.</li><li>Each condition level is a different set of sections; anything else that differs between them (organ, tumour type, donor, processing) is part of the comparison (no BLOCK_COLUMN was given).</li><li>Visium pseudobulks mix the cell types of each domain: a DE gene can reflect a change in the cell-type mix within the label rather than in expression.</li><li>Log fold changes are not shrunken and the FDR is controlled within each label, not across labels; composition tests are CLR + t-test per label (scCODA is the fuller model).</li></ul></div>
+<details open><summary>Composition tests (4 labels)</summary>
+<div class="wrap"><table>
+  <tr><th>domain</th><th class="num">mean share ctrl</th><th class="num">mean share treat</th><th class="num">CLR difference</th><th class="num">p</th><th class="num">adj. p</th><th class="num">rank-test adj. p</th><th></th></tr>
+<tr><td>D02</td><td class="num">30%</td><td class="num">45%</td>    <td class="num">+0.60</td><td class="num">0.001</td><td class="num">0.004</td><td class="num">1</td>
+    <td><span class="tag">significant</span></td></tr><tr><td>D01</td><td class="num">30%</td><td class="num">29%</td>    <td class="num">-0.02</td><td class="num">0.6</td><td class="num">0.8</td><td class="num">1</td>
+    <td></td></tr><tr><td>D03</td><td class="num">30%</td><td class="num">29%</td>    <td class="num">-0.02</td><td class="num">0.6</td><td class="num">0.8</td><td class="num">1</td>
+    <td></td></tr><tr><td>D04</td><td class="num">30%</td><td class="num">29%</td>    <td class="num">-0.02</td><td class="num">0.6</td><td class="num">0.8</td><td class="num">1</td>
+    <td></td></tr></table></div></details>
+<figure><a href="figures/de_counts_domain.png"><img src="figures/de_counts_domain.png" alt="Significant DE genes per domain (FDR 0.05), higher (right) and lower (left)."></a><figcaption>Significant DE genes per domain (FDR 0.05), higher (right) and lower (left).</figcaption></figure>
+<details><summary>Pseudobulk DE per domain</summary>
+<div class="wrap"><table>
+  <tr><th>domain</th><th>status</th><th class="num">genes tested</th><th class="num">significant</th><th class="num">up</th><th class="num">down</th><th>top up</th><th>top down</th></tr>
+<tr><td>D01</td><td class="small">tested</td>
+    <td class="num">5</td><td class="num">4</td><td class="num up">3</td><td class="num down">1</td>
+    <td class="small">IFI6, ISG15, L0G</td><td class="small">CRYAB</td></tr><tr><td>D02</td><td class="small">tested</td>
+    <td class="num">5</td><td class="num">4</td><td class="num up">3</td><td class="num down">1</td>
+    <td class="small">IFI6, ISG15, L1G</td><td class="small">CRYAB</td></tr><tr><td>D03</td><td class="small">tested</td>
+    <td class="num">5</td><td class="num">4</td><td class="num up">3</td><td class="num down">1</td>
+    <td class="small">IFI6, ISG15, L2G</td><td class="small">CRYAB</td></tr><tr><td>D04</td><td class="small">skipped: reference level &#39;ctrl&#39; has 1 pseudobulks (&lt; MIN_SAMPLES_PER_GROUP=2)</td>
+    <td class="num">0</td><td class="num">–</td><td class="num up">–</td><td class="num down">–</td>
+    <td class="small"></td><td class="small"></td></tr></table></div></details>
+<details><summary>Top 12 DE results by adjusted p</summary>
+<div class="wrap"><table>
+  <tr><th>domain</th><th>gene</th><th class="num">log2 FC</th><th class="num">SE</th><th class="num">base mean</th><th class="num">adj. p</th></tr>
+<tr><td>D01</td><td><strong>IFI6</strong></td><td class="num up">+2.50</td><td class="num">0.30</td><td class="num">100</td><td class="num">1e-8</td></tr><tr><td>D02</td><td><strong>IFI6</strong></td><td class="num up">+2.50</td><td class="num">0.30</td><td class="num">100</td><td class="num">1e-8</td></tr><tr><td>D03</td><td><strong>IFI6</strong></td><td class="num up">+2.50</td><td class="num">0.30</td><td class="num">100</td><td class="num">1e-8</td></tr><tr><td>D01</td><td><strong>ISG15</strong></td><td class="num up">+2.00</td><td class="num">0.30</td><td class="num">100</td><td class="num">1e-6</td></tr><tr><td>D02</td><td><strong>ISG15</strong></td><td class="num up">+2.00</td><td class="num">0.30</td><td class="num">100</td><td class="num">1e-6</td></tr><tr><td>D03</td><td><strong>ISG15</strong></td><td class="num up">+2.00</td><td class="num">0.30</td><td class="num">100</td><td class="num">1e-6</td></tr><tr><td>D01</td><td><strong>CRYAB</strong></td><td class="num down">-1.50</td><td class="num">0.30</td><td class="num">100</td><td class="num">0.02</td></tr><tr><td>D02</td><td><strong>CRYAB</strong></td><td class="num down">-1.50</td><td class="num">0.30</td><td class="num">100</td><td class="num">0.02</td></tr><tr><td>D03</td><td><strong>CRYAB</strong></td><td class="num down">-1.50</td><td class="num">0.30</td><td class="num">100</td><td class="num">0.02</td></tr><tr><td>D01</td><td><strong>L0G</strong></td><td class="num up">+1.00</td><td class="num">0.30</td><td class="num">100</td><td class="num">0.03</td></tr><tr><td>D02</td><td><strong>L1G</strong></td><td class="num up">+1.00</td><td class="num">0.30</td><td class="num">100</td><td class="num">0.03</td></tr><tr><td>D03</td><td><strong>L2G</strong></td><td class="num up">+1.00</td><td class="num">0.30</td><td class="num">100</td><td class="num">0.03</td></tr></table></div></details>
+<details><summary>Genes changing the same way in most labels (3)</summary>
+<p class="small"><span class="down">CRYAB</span> (3), <span class="up">IFI6</span> (3), <span class="up">ISG15</span> (3)</p></details>
+<div class="grid"><figure><a href="figures/compare_domain_composition.png"><img src="figures/compare_domain_composition.png" alt="Share of each label per sample and condition (adjusted p in the titles)" loading="lazy"></a><figcaption>Share of each label per sample and condition (adjusted p in the titles)</figcaption></figure><figure><a href="figures/compare_domain_de_heatmap.png"><img src="figures/compare_domain_de_heatmap.png" alt="Top genes of every DE test: log2 fold change, dot = significant" loading="lazy"></a><figcaption>Top genes of every DE test: log2 fold change, dot = significant</figcaption></figure><figure><a href="figures/compare_domain_volcano_D01.png"><img src="figures/compare_domain_volcano_D01.png" alt="Volcano: D01" loading="lazy"></a><figcaption>Volcano: D01</figcaption></figure><figure><a href="figures/compare_domain_volcano_D02.png"><img src="figures/compare_domain_volcano_D02.png" alt="Volcano: D02" loading="lazy"></a><figcaption>Volcano: D02</figcaption></figure><figure><a href="figures/compare_domain_volcano_D03.png"><img src="figures/compare_domain_volcano_D03.png" alt="Volcano: D03" loading="lazy"></a><figcaption>Volcano: D03</figcaption></figure></div>
+<h3>annotation: treat vs ctrl <span class="muted small">(condition; ctrl 2 and treat 2 samples)</span></h3>
+<ul class="obs"><li>Composition (treat vs ctrl): no label&#39;s share differs significantly at FDR 0.05. The closest is TLS (30% of spots in ctrl vs 29% in treat; adj. p 0.8). Not significant here is not evidence of no change: with 2 vs 2 samples the rank test cannot go below p = 0.33 before correction over 3 labels and the t-test has few degrees of freedom.</li><li>Pseudobulk DE (treat vs ctrl): 8 significant gene × label results at FDR 0.05 over 2 tested labels; most in TLS (4: 3 up, 1 down in treat).</li><li>Not tested (1 label): Normal (reference level &#39;ctrl&#39; has fewer than 2 pseudobulks).</li></ul>
+<div class="caveats"><strong>Keep in mind</strong><ul><li>The sample is the replicate (ctrl 2 and treat 2 samples). With this few, only large and consistent changes are detectable, and the rank test cannot reach significance in small designs.</li><li>Each condition level is a different set of sections; anything else that differs between them (organ, tumour type, donor, processing) is part of the comparison (no BLOCK_COLUMN was given).</li><li>Visium pseudobulks mix the cell types of each annotation: a DE gene can reflect a change in the cell-type mix within the label rather than in expression.</li><li>Log fold changes are not shrunken and the FDR is controlled within each label, not across labels; composition tests are CLR + t-test per label (scCODA is the fuller model).</li></ul></div>
+<details open><summary>Composition tests (3 labels)</summary>
+<div class="wrap"><table>
+  <tr><th>annotation</th><th class="num">mean share ctrl</th><th class="num">mean share treat</th><th class="num">CLR difference</th><th class="num">p</th><th class="num">adj. p</th><th class="num">rank-test adj. p</th><th></th></tr>
+<tr><td>TLS</td><td class="num">30%</td><td class="num">29%</td>    <td class="num">-0.02</td><td class="num">0.6</td><td class="num">0.8</td><td class="num">1</td>
+    <td></td></tr><tr><td>Tumor</td><td class="num">30%</td><td class="num">29%</td>    <td class="num">-0.02</td><td class="num">0.6</td><td class="num">0.8</td><td class="num">1</td>
+    <td></td></tr><tr><td>Normal</td><td class="num">30%</td><td class="num">29%</td>    <td class="num">-0.02</td><td class="num">0.6</td><td class="num">0.8</td><td class="num">1</td>
+    <td></td></tr></table></div></details>
+<figure><a href="figures/de_counts_annotation.png"><img src="figures/de_counts_annotation.png" alt="Significant DE genes per annotation (FDR 0.05), higher (right) and lower (left)."></a><figcaption>Significant DE genes per annotation (FDR 0.05), higher (right) and lower (left).</figcaption></figure>
+<details><summary>Pseudobulk DE per annotation</summary>
+<div class="wrap"><table>
+  <tr><th>annotation</th><th>status</th><th class="num">genes tested</th><th class="num">significant</th><th class="num">up</th><th class="num">down</th><th>top up</th><th>top down</th></tr>
+<tr><td>TLS</td><td class="small">tested</td>
+    <td class="num">5</td><td class="num">4</td><td class="num up">3</td><td class="num down">1</td>
+    <td class="small">IFI6, ISG15, L0G</td><td class="small">CRYAB</td></tr><tr><td>Tumor</td><td class="small">tested</td>
+    <td class="num">5</td><td class="num">4</td><td class="num up">3</td><td class="num down">1</td>
+    <td class="small">IFI6, ISG15, L1G</td><td class="small">CRYAB</td></tr><tr><td>Normal</td><td class="small">skipped: reference level &#39;ctrl&#39; has 1 pseudobulks (&lt; MIN_SAMPLES_PER_GROUP=2)</td>
+    <td class="num">0</td><td class="num">–</td><td class="num up">–</td><td class="num down">–</td>
+    <td class="small"></td><td class="small"></td></tr></table></div></details>
+<details><summary>Top 8 DE results by adjusted p</summary>
+<div class="wrap"><table>
+  <tr><th>annotation</th><th>gene</th><th class="num">log2 FC</th><th class="num">SE</th><th class="num">base mean</th><th class="num">adj. p</th></tr>
+<tr><td>TLS</td><td><strong>IFI6</strong></td><td class="num up">+2.50</td><td class="num">0.30</td><td class="num">100</td><td class="num">1e-8</td></tr><tr><td>Tumor</td><td><strong>IFI6</strong></td><td class="num up">+2.50</td><td class="num">0.30</td><td class="num">100</td><td class="num">1e-8</td></tr><tr><td>TLS</td><td><strong>ISG15</strong></td><td class="num up">+2.00</td><td class="num">0.30</td><td class="num">100</td><td class="num">1e-6</td></tr><tr><td>Tumor</td><td><strong>ISG15</strong></td><td class="num up">+2.00</td><td class="num">0.30</td><td class="num">100</td><td class="num">1e-6</td></tr><tr><td>TLS</td><td><strong>CRYAB</strong></td><td class="num down">-1.50</td><td class="num">0.30</td><td class="num">100</td><td class="num">0.02</td></tr><tr><td>Tumor</td><td><strong>CRYAB</strong></td><td class="num down">-1.50</td><td class="num">0.30</td><td class="num">100</td><td class="num">0.02</td></tr><tr><td>TLS</td><td><strong>L0G</strong></td><td class="num up">+1.00</td><td class="num">0.30</td><td class="num">100</td><td class="num">0.03</td></tr><tr><td>Tumor</td><td><strong>L1G</strong></td><td class="num up">+1.00</td><td class="num">0.30</td><td class="num">100</td><td class="num">0.03</td></tr></table></div></details>
+<div class="grid"><figure><a href="figures/compare_annotation_composition.png"><img src="figures/compare_annotation_composition.png" alt="Share of each label per sample and condition (adjusted p in the titles)" loading="lazy"></a><figcaption>Share of each label per sample and condition (adjusted p in the titles)</figcaption></figure><figure><a href="figures/compare_annotation_de_heatmap.png"><img src="figures/compare_annotation_de_heatmap.png" alt="Top genes of every DE test: log2 fold change, dot = significant" loading="lazy"></a><figcaption>Top genes of every DE test: log2 fold change, dot = significant</figcaption></figure><figure><a href="figures/compare_annotation_volcano_TLS.png"><img src="figures/compare_annotation_volcano_TLS.png" alt="Volcano: TLS" loading="lazy"></a><figcaption>Volcano: TLS</figcaption></figure><figure><a href="figures/compare_annotation_volcano_Tumor.png"><img src="figures/compare_annotation_volcano_Tumor.png" alt="Volcano: Tumor" loading="lazy"></a><figcaption>Volcano: Tumor</figcaption></figure></div>
+
+
+
+
+<h2 id="methods">Methods</h2>
+<p class="small muted">From the provenance.json files among the inputs: each step's version, tool versions, parameters and method, and the papers it rests on (numbers refer to the Citations).</p>
+<div class="card">
+  <h3 style="margin-top:0">Import (Space Ranger, Xenium, MERSCOPE, CosMx, AnnData, SpatialData) <span class="muted small">st-prep</span></h3>
+  <dl class="kv small">
+    <dt>version</dt><dd>0.1.0</dd>
+<dt>tools</dt><dd>python 3.12, scanpy 1.12.5</dd><dt>parameters</dt><dd><code>SEED=42, MAX_OBS_PER_SAMPLE=0</code></dd><dt>provenance</dt><dd class="muted">metadata/provenance.json</dd>  </dl>
+<p class="small">Cites <a href="#ref1">[1]</a> <a href="#ref2">[2]</a> <a href="#ref3">[3]</a> <a href="#ref4">[4]</a></p>
+</div>
+<div class="card">
+  <h3 style="margin-top:0">Quality control and normalization <span class="muted small">st-qc</span></h3>
+  <dl class="kv small">
+    <dt>version</dt><dd>0.1.0</dd>
+<dt>tools</dt><dd>python 3.12, scanpy 1.12.5</dd><dt>parameters</dt><dd><code>SEED=42, MADS=5.0, FILTER_MODE=mad</code></dd><dt>provenance</dt><dd class="muted">qc/provenance.json</dd>  </dl>
+<details class="small"><summary>Method as run</summary><ul><li>filter: MAD outliers</li></ul></details><p class="small">Cites <a href="#ref5">[5]</a> <a href="#ref6">[6]</a> <a href="#ref7">[7]</a> <a href="#ref1">[1]</a> <a href="#ref2">[2]</a></p>
+</div>
+<div class="card">
+  <h3 style="margin-top:0">Spatial domains (BANKSY) <span class="muted small">st-domains</span></h3>
+  <dl class="kv small">
+    <dt>version</dt><dd>0.1.0</dd>
+<dt>tools</dt><dd>pybanksy 1.3.5</dd><dt>parameters</dt><dd><code>LAMBDA=0.8, RESOLUTION=0.2</code></dd><dt>provenance</dt><dd class="muted">domains/provenance.json</dd>  </dl>
+<details class="small"><summary>Method as run</summary><ul><li>BANKSY features</li><li>Harmony</li><li>Leiden</li></ul></details><p class="small">Cites <a href="#ref8">[8]</a> <a href="#ref9">[9]</a> <a href="#ref10">[10]</a> <a href="#ref11">[11]</a> <a href="#ref12">[12]</a> <a href="#ref1">[1]</a> <a href="#ref2">[2]</a></p>
+</div>
+<div class="card">
+  <h3 style="margin-top:0">Spatially variable genes (Moran&#39;s I) <span class="muted small">st-svg</span></h3>
+  <dl class="kv small">
+    <dt>version</dt><dd>0.1.0</dd>
+<dt>tools</dt><dd>python 3.12, scanpy 1.12.5</dd><dt>parameters</dt><dd><code>SEED=42, FDR=0.05</code></dd><dt>provenance</dt><dd class="muted">svg/provenance.json</dd>  </dl>
+<p class="small">Cites <a href="#ref13">[13]</a> <a href="#ref14">[14]</a> <a href="#ref15">[15]</a> <a href="#ref16">[16]</a> <a href="#ref17">[17]</a> <a href="#ref1">[1]</a> <a href="#ref2">[2]</a></p>
+</div>
+<div class="card">
+  <h3 style="margin-top:0">Condition comparison (composition, pseudobulk DE) <span class="muted small">st-compare</span></h3>
+  <dl class="kv small">
+    <dt>version</dt><dd>0.1.0</dd>
+<dt>tools</dt><dd>python 3.12, scanpy 1.12.5</dd><dt>parameters</dt><dd><code>SEED=42, LABEL_COLUMN=annotation, CONDITION_COLUMN=condition, FDR=0.05</code></dd><dt>provenance</dt><dd class="muted">compare/annotation/provenance.json</dd>  </dl>
+<hr style="border:0;border-top:1px dashed #e1e0d9">  <dl class="kv small">
+    <dt>version</dt><dd>0.1.0</dd>
+<dt>tools</dt><dd>python 3.12, scanpy 1.12.5</dd><dt>parameters</dt><dd><code>SEED=42, LABEL_COLUMN=domain, CONDITION_COLUMN=condition, FDR=0.05</code></dd><dt>provenance</dt><dd class="muted">compare/domain/provenance.json</dd>  </dl>
+<p class="small">Cites <a href="#ref18">[18]</a> <a href="#ref19">[19]</a> <a href="#ref20">[20]</a> <a href="#ref21">[21]</a> <a href="#ref22">[22]</a> <a href="#ref15">[15]</a> <a href="#ref23">[23]</a> <a href="#ref2">[2]</a></p>
+</div>
+<div class="card">
+  <h3 style="margin-top:0">This report <span class="muted small">st-report</span></h3>
+  <dl class="kv small">
+    <dt>version</dt><dd>0.1.0</dd>
+<dt>tools</dt><dd>python 3.12, pandas x, numpy x, matplotlib x, jinja2 x</dd><dt>parameters</dt><dd><code>REPORT_TITLE=Spatial Transcriptomics Report, FDR=0.05, MAX_ITEMS=20, MAX_FIGURES=12</code></dd>  </dl>
+<p class="small">Cites <a href="#ref24">[24]</a> <a href="#ref25">[25]</a> <a href="#ref26">[26]</a></p>
+</div>
+
+<h2 id="citations">Citations</h2>
+<p class="small muted">Deduplicated over the steps above. Each was checked on Crossref (DataCite for Zenodo) and, where it has one, its PMID on PubMed.</p>
+<ol class="refs small"><li id="ref1">Wolf FA, Angerer P, Theis FJ. SCANPY: large-scale single-cell gene expression data analysis. <em>Genome Biol</em> 2018;19(1):15. <a href="https://doi.org/10.1186/s13059-017-1382-0">doi:10.1186/s13059-017-1382-0</a>, PMID 29409532.</li><li id="ref2">Virshup I, Rybakov S, Theis FJ, Angerer P, Wolf FA. anndata: Access and store annotated data matrices. <em>JOSS</em> 2024;9(101):4371. <a href="https://doi.org/10.21105/joss.04371">doi:10.21105/joss.04371</a>.</li><li id="ref3">Marconato L, Palla G, Yamauchi KA, et al.. SpatialData: an open and universal data framework for spatial omics. <em>Nat Methods</em> 2025;22(1):58-62. <a href="https://doi.org/10.1038/s41592-024-02212-x">doi:10.1038/s41592-024-02212-x</a>, PMID 38509327.</li><li id="ref4">Ståhl PL, Salmén F, Vickovic S, et al.. Visualization and analysis of gene expression in tissue sections by spatial transcriptomics. <em>Science</em> 2016;353(6294):78-82. <a href="https://doi.org/10.1126/science.aaf2403">doi:10.1126/science.aaf2403</a>, PMID 27365449.</li><li id="ref5">Heumos L, Schaar AC, Lance C, et al.. Best practices for single-cell analysis across modalities. <em>Nat Rev Genet</em> 2023;24(8):550-572. <a href="https://doi.org/10.1038/s41576-023-00586-w">doi:10.1038/s41576-023-00586-w</a>, PMID 37002403.</li><li id="ref6">Germain PL, Sonrel A, Robinson MD. pipeComp, a general framework for the evaluation of computational pipelines, reveals performant single cell RNA-seq preprocessing tools. <em>Genome Biol</em> 2020;21(1):227. <a href="https://doi.org/10.1186/s13059-020-02136-7">doi:10.1186/s13059-020-02136-7</a>, PMID 32873325.</li><li id="ref7">Stuart T, Butler A, Hoffman P, et al.. Comprehensive Integration of Single-Cell Data. <em>Cell</em> 2019;177(7):1888-1902.e21. <a href="https://doi.org/10.1016/j.cell.2019.05.031">doi:10.1016/j.cell.2019.05.031</a>, PMID 31178118.</li><li id="ref8">Singhal V, Chou N, Lee J, et al.. BANKSY unifies cell typing and tissue domain segmentation for scalable spatial omics data analysis. <em>Nat Genet</em> 2024;56(3):431-441. <a href="https://doi.org/10.1038/s41588-024-01664-3">doi:10.1038/s41588-024-01664-3</a>, PMID 38413725.</li><li id="ref9">Korsunsky I, Millard N, Fan J, et al.. Fast, sensitive and accurate integration of single-cell data with Harmony. <em>Nat Methods</em> 2019;16(12):1289-1296. <a href="https://doi.org/10.1038/s41592-019-0619-0">doi:10.1038/s41592-019-0619-0</a>, PMID 31740819.</li><li id="ref10">Traag VA, Waltman L, van Eck NJ. From Louvain to Leiden: guaranteeing well-connected communities. <em>Sci Rep</em> 2019;9(1):5233. <a href="https://doi.org/10.1038/s41598-019-41695-z">doi:10.1038/s41598-019-41695-z</a>, PMID 30914743.</li><li id="ref11">McInnes L, Healy J, Saul N, Großberger L. UMAP: Uniform Manifold Approximation and Projection. <em>JOSS</em> 2018;3(29):861. <a href="https://doi.org/10.21105/joss.00861">doi:10.21105/joss.00861</a>.</li><li id="ref12">Yuan Z, Zhao F, Lin S, et al.. Benchmarking spatial clustering methods with spatially resolved transcriptomics data. <em>Nat Methods</em> 2024;21(4):712-722. <a href="https://doi.org/10.1038/s41592-024-02215-8">doi:10.1038/s41592-024-02215-8</a>, PMID 38491270.</li><li id="ref13">Moran PAP. Notes on continuous stochastic phenomena. <em>Biometrika</em> 1950;37(1-2):17-23. <a href="https://doi.org/10.1093/biomet/37.1-2.17">doi:10.1093/biomet/37.1-2.17</a>.</li><li id="ref14">Geary RC. The Contiguity Ratio and Statistical Mapping. <em>The Incorporated Statistician</em> 1954;5(3):115. <a href="https://doi.org/10.2307/2986645">doi:10.2307/2986645</a>.</li><li id="ref15">Benjamini Y, Hochberg Y. Controlling the False Discovery Rate: A Practical and Powerful Approach to Multiple Testing. <em>Journal of the Royal Statistical Society Series B: Statistical Methodology</em> 1995;57(1):289-300. <a href="https://doi.org/10.1111/j.2517-6161.1995.tb02031.x">doi:10.1111/j.2517-6161.1995.tb02031.x</a>.</li><li id="ref16">Svensson V, Teichmann SA, Stegle O. SpatialDE: identification of spatially variable genes. <em>Nat Methods</em> 2018;15(5):343-346. <a href="https://doi.org/10.1038/nmeth.4636">doi:10.1038/nmeth.4636</a>, PMID 29553579.</li><li id="ref17">Palla G, Spitzer H, Klein M, et al.. Squidpy: a scalable framework for spatial omics analysis. <em>Nat Methods</em> 2022;19(2):171-178. <a href="https://doi.org/10.1038/s41592-021-01358-2">doi:10.1038/s41592-021-01358-2</a>, PMID 35102346.</li><li id="ref18">Muzellec B, Teleńczuk M, Cabeli V, Andreux M. PyDESeq2: a python package for bulk RNA-seq differential expression analysis. <em>Bioinformatics</em> 2023;39(9):btad547. <a href="https://doi.org/10.1093/bioinformatics/btad547">doi:10.1093/bioinformatics/btad547</a>, PMID 37669147.</li><li id="ref19">Love MI, Huber W, Anders S. Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. <em>Genome Biol</em> 2014;15(12):550. <a href="https://doi.org/10.1186/s13059-014-0550-8">doi:10.1186/s13059-014-0550-8</a>, PMID 25516281.</li><li id="ref20">Squair JW, Gautier M, Kathe C, et al.. Confronting false discoveries in single-cell differential expression. <em>Nat Commun</em> 2021;12(1):5692. <a href="https://doi.org/10.1038/s41467-021-25960-2">doi:10.1038/s41467-021-25960-2</a>, PMID 34584091.</li><li id="ref21">Büttner M, Ostner J, Müller CL, Theis FJ, Schubert B. scCODA is a Bayesian model for compositional single-cell data analysis. <em>Nat Commun</em> 2021;12(1):6876. <a href="https://doi.org/10.1038/s41467-021-27150-6">doi:10.1038/s41467-021-27150-6</a>, PMID 34824236.</li><li id="ref22">Aitchison J. The Statistical Analysis of Compositional Data. <em>Journal of the Royal Statistical Society Series B: Statistical Methodology</em> 1982;44(2):139-160. <a href="https://doi.org/10.1111/j.2517-6161.1982.tb01195.x">doi:10.1111/j.2517-6161.1982.tb01195.x</a>.</li><li id="ref23">Virtanen P, Gommers R, Oliphant TE, et al.. SciPy 1.0: fundamental algorithms for scientific computing in Python. <em>Nat Methods</em> 2020;17(3):261-272. <a href="https://doi.org/10.1038/s41592-019-0686-2">doi:10.1038/s41592-019-0686-2</a>, PMID 32015543.</li><li id="ref24">Moses L, Pachter L. Museum of spatial transcriptomics. <em>Nat Methods</em> 2022;19(5):534-546. <a href="https://doi.org/10.1038/s41592-022-01409-2">doi:10.1038/s41592-022-01409-2</a>, PMID 35273392.</li><li id="ref25">Sang-aram C, Browaeys R, Seurinck R, Saeys Y. Spotless, a reproducible pipeline for benchmarking cell type deconvolution in spatial transcriptomics. <em>eLife</em> 2024;12:RP88431. <a href="https://doi.org/10.7554/eLife.88431">doi:10.7554/eLife.88431</a>, PMID 38787371.</li><li id="ref26">Hunter JD. Matplotlib: A 2D Graphics Environment. <em>Comput. Sci. Eng.</em> 2007;9(3):90-95. <a href="https://doi.org/10.1109/MCSE.2007.55">doi:10.1109/MCSE.2007.55</a>.</li></ol>
+
+<h2 id="data">Input data</h2>
+<p>4 sample(s); source paths as st-prep recorded them:</p>
+<p class="small"><code>input/S1</code>, <code>input/S2</code>, <code>input/S3</code>, <code>input/S4</code></p>
+
+<footer>
+  Generated 2026-01-02T03:04:05+00:00 by st-report 0.1.0 (pandas x, matplotlib x).
+  FDR 0.05, MAX_ITEMS 20, MAX_FIGURES 12.
+  Observations are drawn from the upstream outputs and describe the data; they are not clinical findings.
+</footer>
+</main>
+</body>
+</html>

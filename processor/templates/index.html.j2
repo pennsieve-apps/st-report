@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }}</title>
+<style>
+  :root { color-scheme: light; }
+  body { margin: 0; padding: 24px 16px 48px; background: #f9f9f7; color: #0b0b0b;
+         font-family: system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 15px; line-height: 1.5; }
+  main { max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  h2 { font-size: 1.2rem; margin: 40px 0 10px; padding-top: 8px; border-top: 1px solid #e1e0d9; }
+  h3 { font-size: 1rem; margin: 22px 0 6px; }
+  .sub { color: #52514e; margin: 0 0 14px; }
+  .muted { color: #898781; }
+  nav { font-size: 14px; margin: 10px 0 18px; }
+  nav a { margin-right: 14px; white-space: nowrap; }
+  .card { background: #fcfcfb; border: 1px solid rgba(11,11,11,0.10); border-radius: 8px; padding: 12px 16px; margin: 12px 0; }
+  ul.obs { margin: 6px 0; padding-left: 20px; } ul.obs li { margin: 3px 0; }
+  .caveats { background: #fff7df; border: 1px solid #fab219; border-radius: 6px; padding: 8px 12px; font-size: 14px; margin: 10px 0; }
+  .caveats strong { display: block; margin-bottom: 2px; }
+  .caveats ul { margin: 4px 0; padding-left: 20px; }
+  .error { background: #fbe3e3; border: 1px solid #d03b3b; border-radius: 6px; padding: 8px 12px; font-size: 14px; }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  th, td { text-align: left; padding: 4px 8px; border-bottom: 1px solid #e1e0d9; vertical-align: top; }
+  th { color: #52514e; font-weight: 600; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .wrap { overflow-x: auto; }
+  .flag { display: inline-block; padding: 0 7px; border-radius: 10px; font-size: 12px; white-space: nowrap;
+          background: #fbe3e3; color: #7a1f1f; border: 1px solid #d03b3b; }
+  .tag { display: inline-block; padding: 0 6px; border-radius: 4px; font-size: 12px; background: #e1e0d9; color: #0b0b0b; }
+  .up { color: #1c5cab; } .down { color: #a33b13; }
+  figure { margin: 14px 0; }
+  figure img { max-width: 100%; height: auto; display: block; background: #fcfcfb; border: 1px solid #e1e0d9; border-radius: 6px; }
+  figcaption { color: #52514e; font-size: 13px; margin-top: 4px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; }
+  .kv { display: grid; grid-template-columns: max-content 1fr; gap: 2px 14px; font-size: 14px; }
+  .kv dt { color: #52514e; } .kv dd { margin: 0; }
+  .small { font-size: 12.5px; }
+  details summary { cursor: pointer; color: #1c5cab; }
+  code { font-size: 12.5px; background: #f0efec; padding: 0 3px; border-radius: 3px; word-break: break-word; }
+  a { color: #1c5cab; }
+  ol.refs li { margin: 3px 0; }
+  footer { margin-top: 40px; color: #898781; font-size: 13px; }
+</style>
+</head>
+<body>
+<main>
+<h1>{{ title }}</h1>
+<p class="sub">
+  {% if workflows %}{{ workflows | join(" · ") }}. {% endif %}
+  {% if st %}{{ st.n_samples }} sample{{ "s" if st.n_samples != 1 }}{% if st.platforms %} ({{ st.platforms | join(", ") }}){% endif %}{% if st.conditions and st.conditions | length > 1 %}, {{ st.condition_column }}: {{ st.conditions.keys() | join(", ") }}{% endif %}. {% endif %}
+  Generated {{ generated_at }}. Research use; observations describe the data and are not clinical findings.
+</p>
+<nav>
+  {% if st %}<a href="#design">Study design</a>{% endif %}
+  {% if qc %}<a href="#qc">QC</a>{% endif %}
+  {% if dom %}<a href="#domains">Spatial domains</a>{% endif %}
+  {% if sv %}<a href="#svg">Spatially variable genes</a>{% endif %}
+  {% if cmp %}<a href="#compare">Condition comparison</a>{% endif %}
+  {% if dc or ct %}<a href="#celltypes">Cell types</a>{% endif %}
+  {% if ni %}<a href="#organisation">Spatial organisation</a>{% endif %}
+  {% if cc %}<a href="#ccc">Cell–cell communication</a>{% endif %}
+  <a href="#methods">Methods</a>
+  <a href="#citations">Citations</a>
+  <a href="#data">Input data</a>
+</nav>
+
+{% macro observations(sec) %}
+{% if sec.observations %}<ul class="obs">{% for o in sec.observations %}<li>{{ o }}</li>{% endfor %}</ul>{% endif %}
+{% endmacro %}
+{% macro caveats(sec) %}
+{% if sec.caveats %}<div class="caveats"><strong>Keep in mind</strong><ul>{% for c in sec.caveats %}<li>{{ c }}</li>{% endfor %}</ul></div>{% endif %}
+{% endmacro %}
+{% macro figure(file, cap) %}
+{% if file %}<figure><a href="figures/{{ file }}"><img src="figures/{{ file }}" alt="{{ cap }}"></a><figcaption>{{ cap }}</figcaption></figure>{% endif %}
+{% endmacro %}
+{% macro gallery(figs, open=false) %}
+{% if figs %}<div class="grid">{% for f in figs %}<figure><a href="figures/{{ f.file }}"><img src="figures/{{ f.file }}" alt="{{ f.caption }}" loading="lazy"></a><figcaption>{{ f.caption }}</figcaption></figure>{% endfor %}</div>{% endif %}
+{% endmacro %}
+{% macro omitted_note(key) %}
+{% if omitted.get(key) %}<p class="small muted">{{ omitted.get(key) }} more figure(s) not shown (MAX_FIGURES = {{ params.MAX_FIGURES }}); they are in the upstream output.</p>{% endif %}
+{% endmacro %}
+
+{% if errors %}
+<div class="error"><strong>Some sections could not be rendered</strong> (their inputs were present but unreadable):
+<ul>{% for e in errors %}<li>{{ e.section }}: {{ e.error }}</li>{% endfor %}</ul></div>
+{% endif %}
+
+{% if not (st or qc or dom or sv or cmp or ct or dc or ni or cc) %}
+<p class="card">No section had its inputs; see Methods for the provenance files that were found.</p>
+{% endif %}
+
+{# ------------------------------------------------------------------ study design #}
+{% if st %}
+<h2 id="design">Study design</h2>
+{{ observations(st) }}
+{{ caveats(st) }}
+{% if st.conditions %}
+<table style="width:auto"><tr><th>{{ st.condition_column }}</th><th class="num">samples</th></tr>
+{% for k, v in st.conditions.items() %}<tr><td>{{ k }}</td><td class="num">{{ v }}</td></tr>{% endfor %}</table>
+{% endif %}
+<details{% if st.n_samples <= 12 %} open{% endif %}><summary>All {{ st.n_samples }} samples</summary>
+<div class="wrap"><table>
+  <tr>{% for c in st.columns %}<th{% if c in ("n_obs", "n_genes", "n_obs_in_tissue") %} class="num"{% endif %}>{{ c }}</th>{% endfor %}</tr>
+  {% for s in st.samples %}<tr>{% for c in st.columns %}<td{% if c in ("n_obs", "n_genes", "n_obs_in_tissue") %} class="num">{{ s[c] | count }}{% else %}>{{ s[c] if s[c] is present else "" }}{% endif %}</td>{% endfor %}</tr>{% endfor %}
+</table></div></details>
+{% if st.warnings %}<details><summary>st-prep warnings ({{ st.warnings | length }})</summary><ul class="small">{% for w in st.warnings %}<li>{{ w.sample_id }}: {{ w.warning }}</li>{% endfor %}</ul></details>{% endif %}
+{% if st.coordinate_unit %}<p class="small muted">Coordinates in {{ st.coordinate_unit }}s{% if st.images %}; {{ st.images }} sample(s) with a registered H&amp;E image{% endif %}.</p>{% endif %}
+{% endif %}
+
+{# ------------------------------------------------------------------ QC #}
+{% if qc %}
+<h2 id="qc">Quality control</h2>
+{{ observations(qc) }}
+{{ caveats(qc) }}
+{{ figure(qc.figure, "Left: share of each sample's " ~ qc.unit ~ " removed by QC. Right: median counts per observation after QC (sequencing depth / capture). Colour = condition.") }}
+<div class="wrap"><table>
+  <tr><th>sample</th>{% if qc.rows[0].condition is present %}<th>condition</th>{% endif %}<th class="num">before</th><th class="num">after</th><th class="num">removed</th>
+    <th class="num">low counts</th><th class="num">few genes</th><th class="num">mito</th><th class="num">control</th>
+    <th class="num">median counts</th><th class="num">median genes</th><th class="num">cut: counts / genes</th><th class="num">genes kept</th><th>status</th></tr>
+  {% for r in qc.rows %}<tr><td>{{ r.sample_id }}</td>{% if qc.rows[0].condition is present %}<td>{{ r.condition }}</td>{% endif %}
+    <td class="num">{{ r.n_obs_before | count }}</td><td class="num">{{ r.n_obs_after | count }}</td><td class="num">{{ r.pct_removed | pctv }}</td>
+    <td class="num">{{ r.n_removed_low_counts | count }}</td><td class="num">{{ r.n_removed_low_genes | count }}</td><td class="num">{{ r.n_removed_mt | count }}</td><td class="num">{{ r.n_removed_control | count }}</td>
+    <td class="num">{{ r.median_counts | sig(3) }}</td><td class="num">{{ r.median_genes | sig(3) }}</td>
+    <td class="num">{{ r.min_counts | sig(3) }} / {{ r.min_genes | sig(3) }}</td><td class="num">{{ r.n_genes_after | count }}</td>
+    <td>{% if r.status != "ok" %}<span class="flag">{{ r.status }}</span>{% else %}ok{% endif %}</td></tr>{% endfor %}
+</table></div>
+<p class="small muted">Filter mode {{ qc.filter_mode }}. "Cut" = the sample's thresholds (observations below them were removed); one observation can fail several tests.</p>
+{% if qc.figures %}<h3>Per-sample QC figures (st-qc)</h3>{{ gallery(qc.figures) }}{{ omitted_note("qc") }}{% endif %}
+{% endif %}
+
+{# ------------------------------------------------------------------ domains #}
+{% if dom %}
+<h2 id="domains">Spatial domains</h2>
+{{ observations(dom) }}
+{{ caveats(dom) }}
+{{ figure(dom.figure, "Domains × samples: % of each sample's " ~ dom.unit ~ " in each domain, samples grouped by condition.") }}
+<h3>Domains</h3>
+<div class="wrap"><table>
+  <tr><th>domain</th><th class="num">{{ dom.unit }}</th><th class="num">share</th><th class="num">samples (≥ {{ dom.min_obs }})</th><th>conditions</th><th>top markers</th></tr>
+  {% for r in dom.rows %}<tr><td><strong>{{ r.domain }}</strong></td><td class="num">{{ r.n_obs | count }}</td><td class="num">{{ r.fraction | pct }}</td>
+    <td class="num">{{ r.n_samples if r.n_samples is not none else "–" }}</td><td>{{ r.conditions | join(", ") }}</td><td class="small">{{ r.markers | join(", ") }}</td></tr>{% endfor %}
+</table></div>
+{% if dom.gene_selection %}<p class="small muted">Genes: {{ dom.gene_selection }}.</p>{% endif %}
+{% if dom.agreement %}
+<h3>Agreement with the annotation</h3>
+<div class="grid">
+<div><table>
+  <tr><th>sample</th><th class="num">ARI</th><th class="num">NMI</th><th class="num">annotated {{ dom.unit }}</th></tr>
+  {% for r in dom.agreement.per_sample %}<tr><td>{{ r.sample_id }}</td><td class="num">{{ r.ari | num }}</td><td class="num">{{ r.nmi | num }}</td><td class="num">{{ r.n_obs | count }}</td></tr>{% endfor %}
+  <tr><th>pooled</th><th class="num">{{ dom.agreement.ari | num }}</th><th class="num">{{ dom.agreement.nmi | num }}</th><th class="num">{{ dom.agreement.n_obs_used | count }}</th></tr>
+</table></div>
+{% if dom.best_match %}<div><table>
+  <tr><th>annotation</th><th>best domain</th><th class="num">precision</th><th class="num">recall</th><th class="num">F1</th></tr>
+  {% for b in dom.best_match %}<tr><td>{{ b.annotation }}</td><td>{{ b.domain }}</td><td class="num">{{ b.precision | num }}</td><td class="num">{{ b.recall | num }}</td><td class="num">{{ b.f1 | num }}</td></tr>{% endfor %}
+</table><p class="small muted">Precision = share of the domain that carries the annotation; recall = share of the annotation that falls in the domain.</p></div>{% endif %}
+</div>
+{% endif %}
+{% if dom.figures %}<h3>Figures (st-domains)</h3>{{ gallery(dom.figures) }}{{ omitted_note("domains") }}{% endif %}
+{% endif %}
+
+{# ------------------------------------------------------------------ SVG #}
+{% if sv %}
+<h2 id="svg">Spatially variable genes</h2>
+{{ observations(sv) }}
+{{ caveats(sv) }}
+{% if sv.fdr != sv.upstream_fdr %}<p class="small muted">Counted at this report's FDR {{ sv.fdr }} (st-svg used {{ sv.upstream_fdr }}).</p>{% endif %}
+<div class="grid">
+<div class="wrap"><h3>Per sample</h3><table>
+  <tr><th>sample</th><th class="num">tested</th><th class="num">significant</th><th class="num">median I</th><th>top genes</th></tr>
+  {% for r in sv.per_sample %}<tr><td>{{ r.sample_id }}</td><td class="num">{{ r.n_tested | count }}</td><td class="num">{{ r.n_significant | count }} <span class="muted small">({{ r.fraction_significant | pct }})</span></td>
+    <td class="num">{{ r.median_morans_i | num(3) }}</td><td class="small">{{ r.top_genes | join(", ") }}</td></tr>{% endfor %}
+</table></div>
+{% if sv.consensus %}<div class="wrap"><h3>Consensus (top {{ sv.consensus | length }})</h3><table>
+  <tr><th>gene</th><th class="num">significant / tested in</th><th class="num">mean I</th><th class="num">median rank</th><th>top-10 marker of</th></tr>
+  {% for c in sv.consensus %}<tr><td><strong>{{ c.gene }}</strong></td><td class="num">{{ c.n_significant | count }} / {{ c.n_samples | count }}</td><td class="num">{{ c.mean_morans_i | num(3) }}</td><td class="num">{{ c.median_rank | count }}</td><td class="small">{{ c.markers | join(", ") }}</td></tr>{% endfor %}
+</table></div>{% endif %}
+</div>
+{% if sv.figures %}<h3>Figures (st-svg)</h3>{{ gallery(sv.figures) }}{{ omitted_note("svg") }}{% endif %}
+{% endif %}
+
+{# ------------------------------------------------------------------ comparison #}
+{% if cmp %}
+<h2 id="compare">Condition comparison</h2>
+{% for r in cmp.runs %}
+<h3>{{ r.label_column }}{% if cmp.runs | length > 1 and r.label != (r.label_column | string | replace("_", "-")) %} <span class="muted small">(LABEL {{ r.label }})</span>{% endif %}: {{ r.levels | reject("equalto", r.reference) | join(", ") }} vs {{ r.reference }} <span class="muted small">({{ r.condition_column }}; {{ r.design }} samples)</span></h3>
+{{ observations(r) }}
+{{ caveats(r) }}
+{% if r.fdr != r.upstream_fdr %}<p class="small muted">Counted at this report's FDR {{ r.fdr }} (st-compare used {{ r.upstream_fdr }}).</p>{% endif %}
+{% if r.composition %}
+<details{% if r.composition | length <= 16 %} open{% endif %}><summary>Composition tests ({{ r.composition | length }} labels)</summary>
+<div class="wrap"><table>
+  <tr><th>{{ r.label_column }}</th>{% for l in r.levels %}<th class="num">mean share {{ l }}</th>{% endfor %}<th class="num">CLR difference</th><th class="num">p</th><th class="num">adj. p</th><th class="num">rank-test adj. p</th><th></th></tr>
+  {% for c in r.composition %}<tr><td>{{ c.label }}</td>{% for l in r.levels %}<td class="num">{{ c.means[l] | pct }}</td>{% endfor %}
+    <td class="num">{{ c.clr_difference | num(2, true) }}</td><td class="num">{{ c.p | pval }}</td><td class="num">{{ c.p_adj | pval }}</td><td class="num">{{ c.rank_p_adj | pval }}</td>
+    <td>{% if c.significant %}<span class="tag">significant</span>{% elif not c.tested %}<span class="muted small">not tested</span>{% endif %}</td></tr>{% endfor %}
+</table></div></details>
+{% endif %}
+{% if r.de_summary %}
+{{ figure(r.figure, "Significant DE genes per " ~ r.label_column ~ " (FDR " ~ r.fdr ~ "), higher (right) and lower (left).") }}
+<details><summary>Pseudobulk DE per {{ r.label_column }}</summary>
+<div class="wrap"><table>
+  <tr><th>{{ r.label_column }}</th><th>status</th><th class="num">genes tested</th><th class="num">significant</th><th class="num">up</th><th class="num">down</th><th>top up</th><th>top down</th></tr>
+  {% for d in r.de_summary %}<tr><td>{{ d.label }}</td><td class="small">{{ d.status }}{% if d.reason is present %}: {{ d.reason }}{% endif %}</td>
+    <td class="num">{{ d.n_genes_tested | count }}</td><td class="num">{{ d.n_significant | count }}</td><td class="num up">{{ d.n_up | count }}</td><td class="num down">{{ d.n_down | count }}</td>
+    <td class="small">{{ (d.top_up or "") | replace(";", ", ") if d.top_up is present else "" }}</td><td class="small">{{ (d.top_down or "") | replace(";", ", ") if d.top_down is present else "" }}</td></tr>{% endfor %}
+</table></div></details>
+{% endif %}
+{% if r.top_genes %}
+<details><summary>Top {{ r.top_genes | length }} DE results by adjusted p</summary>
+<div class="wrap"><table>
+  <tr><th>{{ r.label_column }}</th><th>gene</th><th class="num">log2 FC</th><th class="num">SE</th><th class="num">base mean</th><th class="num">adj. p</th></tr>
+  {% for g in r.top_genes %}<tr><td>{{ g.label }}</td><td><strong>{{ g.gene }}</strong></td><td class="num {{ 'up' if g.log2_fold_change > 0 else 'down' }}">{{ g.log2_fold_change | num(2, true) }}</td><td class="num">{{ g.lfc_se | num }}</td><td class="num">{{ g.base_mean | sig(3) }}</td><td class="num">{{ g.p_adj | pval }}</td></tr>{% endfor %}
+</table></div></details>
+{% endif %}
+{% if r.shared_genes %}
+<details><summary>Genes changing the same way in most labels ({{ r.shared_genes | length }})</summary>
+<p class="small">{% for g in r.shared_genes %}<span class="{{ 'up' if g.dir > 0 else 'down' }}">{{ g.gene }}</span> ({{ g.n_labels }}){{ ", " if not loop.last }}{% endfor %}</p></details>
+{% endif %}
+{% if r.figures %}{{ gallery(r.figures) }}{% endif %}
+{{ omitted_note(r.section_key) }}
+{% endfor %}
+{% endif %}
+
+{# ------------------------------------------------------------------ cell types #}
+{% if dc or ct %}
+<h2 id="celltypes">Cell types</h2>
+{% if dc %}
+<h3>Deconvolution (cell2location)</h3>
+{{ observations(dc) }}
+{{ caveats(dc) }}
+{% if dc.types %}<div class="wrap"><table>
+  <tr><th>cell type</th><th class="num">estimated share of cells</th><th class="num">range over samples</th><th class="num">{{ dc.unit }} where dominant</th></tr>
+  {% for t in dc.types %}<tr><td>{{ t.cell_type }}</td><td class="num">{{ t.fraction | pct }}</td><td class="num">{{ t.min | pct }}–{{ t.max | pct }}</td><td class="num">{{ t.n_dominant | count }}</td></tr>{% endfor %}
+</table></div>{% endif %}
+{% if dc.colocation %}<p class="small">Co-location groups (cell types with loading ≥ 0.2): {% for g in dc.colocation %}<strong>{{ g.group }}</strong> {% for t, w in g.top %}{{ t }}{% if w is not none %} ({{ w | num }}){% endif %}{{ ", " if not loop.last }}{% endfor %}{{ "; " if not loop.last }}{% endfor %}.</p>{% endif %}
+{{ gallery(dc.figures) }}{{ omitted_note("deconvolution") }}
+{% endif %}
+{% if ct %}
+<h3>Clusters and marker-based cell types (st-celltype)</h3>
+{{ observations(ct) }}
+{{ caveats(ct) }}
+{% if ct.clusters %}<div class="wrap"><table>
+  <tr><th>cluster</th><th>call</th><th class="num">{{ ct.unit }}</th><th class="num">score</th><th>runner-up</th><th class="num">margin</th><th>top marker genes</th></tr>
+  {% for c in ct.clusters %}<tr><td>{{ c.cluster }}</td><td><strong>{{ c.cell_type }}</strong></td><td class="num">{{ c.n_obs | count }}</td><td class="num">{{ c.score | num }}</td>
+    <td>{{ c.second_best if c.second_best is present else "" }}{% if c.second_score is present %} <span class="muted small">({{ c.second_score | num }})</span>{% endif %}</td>
+    <td class="num">{% if c.close %}<span class="flag">{{ c.margin | num }}</span>{% else %}{{ c.margin | num }}{% endif %}</td><td class="small">{{ c.markers | join(", ") }}</td></tr>{% endfor %}
+</table></div>
+<p class="small muted">Score = mean z-scored marker-set score of the cluster; margin = score minus the runner-up's (flagged below 0.25).</p>{% endif %}
+{% if ct.types %}<div class="wrap"><table style="width:auto">
+  <tr><th>cell type</th><th class="num">{{ ct.unit }}</th><th class="num">share</th><th class="num">range over samples</th></tr>
+  {% for t in ct.types %}<tr><td>{{ t.cell_type }}</td><td class="num">{{ t.n_obs | count }}</td><td class="num">{{ t.fraction | pct }}</td><td class="num">{{ t.min | pct }}–{{ t.max | pct }}</td></tr>{% endfor %}
+</table></div>{% endif %}
+{% if ct.marker_sets and ct.marker_sets.skipped %}<p class="small muted">Marker sets not scored (too few genes on the panel): {{ ct.marker_sets.skipped | join(", ") }}.</p>{% endif %}
+{{ gallery(ct.figures) }}{{ omitted_note("celltype") }}
+{% endif %}
+{% endif %}
+
+{# ------------------------------------------------------------------ niches #}
+{% if ni %}
+<h2 id="organisation">Spatial organisation</h2>
+{% for r in ni.runs %}
+<h3>Neighbourhoods and niches of {{ r.label_column }}{% if ni.runs | length > 1 and r.label != (r.label_column | string | replace("_", "-")) %} <span class="muted small">(LABEL {{ r.label }})</span>{% endif %}</h3>
+{{ observations(r) }}
+{{ caveats(r) }}
+<div class="grid">
+{% if r.niches %}<div class="wrap"><table>
+  <tr><th>niche</th><th class="num">share</th><th>main labels (share of the niche; × its overall share)</th></tr>
+  {% for n in r.niches %}<tr><td><strong>{{ n.niche }}</strong></td><td class="num">{{ n.fraction | pct }}</td><td class="small">{% for t in n.top %}{{ t.label }} {{ t.fraction | pct }}{% if t.enrichment is present %} (×{{ t.enrichment | num(1) }}){% endif %}{{ "; " if not loop.last }}{% endfor %}</td></tr>{% endfor %}
+</table></div>{% endif %}
+{% if r.enriched or r.depleted %}<div class="wrap"><table>
+  <tr><th>pair (pooled)</th><th class="num">z</th><th class="num">contacts</th></tr>
+  {% for p in r.enriched[:8] %}<tr><td>{{ p.label_a }} – {{ p.label_b }}</td><td class="num up">{{ p.zscore | num(0, true) }}</td><td class="num">{{ p["count"] | count }}</td></tr>{% endfor %}
+  {% for p in r.depleted[:5] %}<tr><td>{{ p.label_a }} – {{ p.label_b }}</td><td class="num down">{{ p.zscore | num(0, true) }}</td><td class="num">{{ p["count"] | count }}</td></tr>{% endfor %}
+</table><p class="small muted">Mixed pairs only; z &gt; 0: neighbours more often than with labels shuffled.</p></div>{% endif %}
+</div>
+{% if r.per_sample is defined and r.per_sample is not none %}<details><summary>Niche shares per sample</summary><div class="wrap"><table>
+  <tr><th>niche</th>{% for s in r.per_sample.columns %}<th class="num">{{ s }}</th>{% endfor %}</tr>
+  {% for n, row in r.per_sample.iterrows() %}<tr><td>{{ n }}</td>{% for v in row %}<td class="num">{{ v | pct }}</td>{% endfor %}</tr>{% endfor %}
+</table></div></details>{% endif %}
+{{ gallery(r.figures) }}
+{{ omitted_note(r.section_key) }}
+{% endfor %}
+{% endif %}
+
+{# ------------------------------------------------------------------ CCC #}
+{% if cc %}
+<h2 id="ccc">Cell–cell communication</h2>
+{% for r in cc.runs %}
+<h3>Between {{ r.label_column }} groups{% if cc.runs | length > 1 and r.label != (r.label_column | string | replace("_", "-")) %} <span class="muted small">(LABEL {{ r.label }})</span>{% endif %}{% if r.resource %} <span class="muted small">(resource: {{ r.resource }})</span>{% endif %}</h3>
+{{ observations(r) }}
+{{ caveats(r) }}
+{% if r.top %}<div class="wrap"><table>
+  <tr><th class="num">rank</th><th>source → target</th><th>ligand → receptor</th><th class="num">top in samples</th><th class="num">mean magnitude rank</th><th class="num">mean specificity rank</th><th class="num">spatial R</th></tr>
+  {% for t in r.top %}<tr><td class="num">{{ t.rank | count }}</td><td>{{ t.source }} → {{ t.target }}</td><td><strong>{{ t.ligand }} → {{ t.receptor }}</strong></td>
+    <td class="num">{{ t.n_samples_top | count }}/{{ t.n_samples | count }}</td><td class="num">{{ t.mean_magnitude_rank | pval }}</td><td class="num">{{ t.mean_specificity_rank | pval }}</td>
+    <td class="num {% if t.spatial_r is present %}{{ 'up' if t.spatial_r > 0 else 'down' }}{% endif %}">{{ t.spatial_r | num(2, true) if t.spatial_r is present else "–" }}</td></tr>{% endfor %}
+</table></div>
+<p class="small muted">Ranks are LIANA+'s aggregate ranks (smaller = stronger / more specific), not p-values. Spatial R: bivariate Moran's R of ligand and receptor, mean over samples (label-free; "–" when the pair was not scored in space).</p>{% endif %}
+{{ figure(r.figure, "Ligand–receptor pairs by spatial co-expression (the strongest by |R|): positive = co-expressed by neighbouring observations, negative = expressed apart.") }}
+{{ gallery(r.figures) }}
+{{ omitted_note(r.section_key) }}
+{% endfor %}
+{% endif %}
+
+{# ------------------------------------------------------------------ methods #}
+<h2 id="methods">Methods</h2>
+<p class="small muted">From the provenance.json files among the inputs: each step's version, tool versions, parameters and method, and the papers it rests on (numbers refer to the Citations).</p>
+{% for g in methods.apps %}
+<div class="card">
+  <h3 style="margin-top:0">{{ g.step or g.app }} <span class="muted small">{{ g.app }}</span></h3>
+  {% for r in g.runs %}
+  <dl class="kv small">
+    <dt>version</dt><dd>{{ r.version or "–" }}</dd>
+    {% if r.tools_text %}<dt>tools</dt><dd>{{ r.tools_text }}</dd>{% endif %}
+    {% if r.parameters_text %}<dt>parameters</dt><dd><code>{{ r.parameters_text }}</code></dd>{% endif %}
+    {% if r.files %}<dt>provenance</dt><dd class="muted">{{ r.files | join(", ") }}</dd>{% endif %}
+  </dl>
+  {% if r.method %}<details class="small"><summary>Method as run</summary><ul>{% for m in r.method %}<li>{{ m }}</li>{% endfor %}</ul></details>{% endif %}
+  {% if not loop.last %}<hr style="border:0;border-top:1px dashed #e1e0d9">{% endif %}
+  {% endfor %}
+  {% if g.cite_numbers %}<p class="small">Cites {% for n in g.cite_numbers %}<a href="#ref{{ n }}">[{{ n }}]</a>{{ " " if not loop.last }}{% endfor %}</p>
+  {% elif g.given_citations %}<p class="small">As given by the step: {% for c in g.given_citations %}{{ c.text }}{% if c.doi %} doi:{{ c.doi }}{% endif %}{{ "; " if not loop.last }}{% endfor %}</p>
+  {% else %}<p class="small muted">No citations on record for this app.</p>{% endif %}
+</div>
+{% endfor %}
+
+<h2 id="citations">Citations</h2>
+<p class="small muted">Deduplicated over the steps above. Each was checked on Crossref (DataCite for Zenodo) and, where it has one, its PMID on PubMed.</p>
+<ol class="refs small">{% for c in methods.references %}<li id="ref{{ loop.index }}">{{ c.short_authors }}. {{ c.title }}. <em>{{ c.journal_display }}</em> {{ c.year }}{% if c.where %};{{ c.where }}{% endif %}. <a href="{{ c.url }}">doi:{{ c.doi }}</a>{% if c.pmid %}, PMID {{ c.pmid }}{% endif %}.</li>{% endfor %}</ol>
+
+{# ------------------------------------------------------------------ data #}
+<h2 id="data">Input data</h2>
+{% for d in credit %}
+<div class="card"><p><strong>Data credit.</strong> {{ d.text }}{% if d.doi %} <a href="https://doi.org/{{ d.doi }}">doi:{{ d.doi }}</a>{% endif %} Licence {{ d.licence }}. {{ d.n_samples }} of its samples are among the inputs.</p>
+{% if d.reference and not d.doi %}<p class="small muted">{{ d.reference.text }} <a href="{{ d.reference.url }}">doi:{{ d.reference.doi }}</a>{% if d.reference.pmid %}, PMID {{ d.reference.pmid }}{% endif %}.</p>{% endif %}
+{% if d.extra %}<p class="small muted">{{ d.extra }} {% if d.extra_reference %}<a href="{{ d.extra_reference.url }}">doi:{{ d.extra_reference.doi }}</a>{% endif %}</p>{% endif %}</div>
+{% endfor %}
+{% if st %}<p>{{ st.n_samples }} sample(s); source paths as st-prep recorded them:</p>
+<p class="small">{% for s in st.samples %}<code>{{ s.path if s.path is present else s.sample_id }}</code>{{ ", " if not loop.last }}{% endfor %}</p>
+{% else %}<p class="muted">The original input files are not known: no st-prep metadata among the inputs.</p>{% endif %}
+
+<footer>
+  Generated {{ generated_at }} by st-report {{ app_version }} (pandas {{ tools.pandas }}, matplotlib {{ tools.matplotlib }}).
+  FDR {{ params.FDR }}, MAX_ITEMS {{ params.MAX_ITEMS }}, MAX_FIGURES {{ params.MAX_FIGURES }}.
+  Observations are drawn from the upstream outputs and describe the data; they are not clinical findings.
+</footer>
+</main>
+</body>
+</html>

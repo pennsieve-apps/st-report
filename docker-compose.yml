@@ -1,0 +1,14 @@
+services:
+  processor:
+    image: st-report:dev
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - dev.env
+    mem_limit: 3g
+    network_mode: none
+    volumes:
+      - ${INPUT_HOST:-./data/fixture/linked}:/data/input:ro
+      - ./data/output:/data/output

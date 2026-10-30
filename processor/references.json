@@ -1,0 +1,3320 @@
+{
+ "scanpy": {
+  "doi": "10.1186/s13059-017-1382-0",
+  "source": "crossref",
+  "title": "SCANPY: large-scale single-cell gene expression data analysis",
+  "authors": [
+   {
+    "family": "Wolf",
+    "given": "F. Alexander"
+   },
+   {
+    "family": "Angerer",
+    "given": "Philipp"
+   },
+   {
+    "family": "Theis",
+    "given": "Fabian J."
+   }
+  ],
+  "journal": "Genome Biology",
+  "journal_short": "Genome Biol",
+  "year": 2018,
+  "volume": "19",
+  "issue": "1",
+  "pages": "15",
+  "type": "article",
+  "pmid": "29409532",
+  "short_authors": "Wolf FA, Angerer P, Theis FJ",
+  "checked": "2026-10-30"
+ },
+ "anndata": {
+  "doi": "10.21105/joss.04371",
+  "source": "crossref",
+  "title": "anndata: Access and store annotated data matrices",
+  "authors": [
+   {
+    "family": "Virshup",
+    "given": "Isaac"
+   },
+   {
+    "family": "Rybakov",
+    "given": "Sergei"
+   },
+   {
+    "family": "Theis",
+    "given": "Fabian J."
+   },
+   {
+    "family": "Angerer",
+    "given": "Philipp"
+   },
+   {
+    "family": "Wolf",
+    "given": "F. Alexander"
+   }
+  ],
+  "journal": "Journal of Open Source Software",
+  "journal_short": "JOSS",
+  "year": 2024,
+  "volume": "9",
+  "issue": "101",
+  "pages": "4371",
+  "type": "article",
+  "pmid": "",
+  "short_authors": "Virshup I, Rybakov S, Theis FJ, Angerer P, Wolf FA",
+  "checked": "2026-10-30"
+ },
+ "squidpy": {
+  "doi": "10.1038/s41592-021-01358-2",
+  "source": "crossref",
+  "title": "Squidpy: a scalable framework for spatial omics analysis",
+  "authors": [
+   {
+    "family": "Palla",
+    "given": "Giovanni"
+   },
+   {
+    "family": "Spitzer",
+    "given": "Hannah"
+   },
+   {
+    "family": "Klein",
+    "given": "Michal"
+   },
+   {
+    "family": "Fischer",
+    "given": "David"
+   },
+   {
+    "family": "Schaar",
+    "given": "Anna Christina"
+   },
+   {
+    "family": "Kuemmerle",
+    "given": "Louis Benedikt"
+   },
+   {
+    "family": "Rybakov",
+    "given": "Sergei"
+   },
+   {
+    "family": "Ibarra",
+    "given": "Ignacio L."
+   },
+   {
+    "family": "Holmberg",
+    "given": "Olle"
+   },
+   {
+    "family": "Virshup",
+    "given": "Isaac"
+   },
+   {
+    "family": "Lotfollahi",
+    "given": "Mohammad"
+   },
+   {
+    "family": "Richter",
+    "given": "Sabrina"
+   },
+   {
+    "family": "Theis",
+    "given": "Fabian J."
+   }
+  ],
+  "journal": "Nature Methods",
+  "journal_short": "Nat Methods",
+  "year": 2022,
+  "volume": "19",
+  "issue": "2",
+  "pages": "171-178",
+  "type": "article",
+  "pmid": "35102346",
+  "short_authors": "Palla G, Spitzer H, Klein M, et al.",
+  "checked": "2026-10-30"
+ },
+ "spatialdata": {
+  "doi": "10.1038/s41592-024-02212-x",
+  "source": "crossref",
+  "title": "SpatialData: an open and universal data framework for spatial omics",
+  "authors": [
+   {
+    "family": "Marconato",
+    "given": "Luca"
+   },
+   {
+    "family": "Palla",
+    "given": "Giovanni"
+   },
+   {
+    "family": "Yamauchi",
+    "given": "Kevin A."
+   },
+   {
+    "family": "Virshup",
+    "given": "Isaac"
+   },
+   {
+    "family": "Heidari",
+    "given": "Elyas"
+   },
+   {
+    "family": "Treis",
+    "given": "Tim"
+   },
+   {
+    "family": "Vierdag",
+    "given": "Wouter-Michiel"
+   },
+   {
+    "family": "Toth",
+    "given": "Marcella"
+   },
+   {
+    "family": "Stockhaus",
+    "given": "Sonja"
+   },
+   {
+    "family": "Shrestha",
+    "given": "Rahul B."
+   },
+   {
+    "family": "Rombaut",
+    "given": "Benjamin"
+   },
+   {
+    "family": "Pollaris",
+    "given": "Lotte"
+   },
+   {
+    "family": "Lehner",
+    "given": "Laurens"
+   },
+   {
+    "family": "Vöhringer",
+    "given": "Harald"
+   },
+   {
+    "family": "Kats",
+    "given": "Ilia"
+   },
+   {
+    "family": "Saeys",
+    "given": "Yvan"
+   },
+   {
+    "family": "Saka",
+    "given": "Sinem K."
+   },
+   {
+    "family": "Huber",
+    "given": "Wolfgang"
+   },
+   {
+    "family": "Gerstung",
+    "given": "Moritz"
+   },
+   {
+    "family": "Moore",
+    "given": "Josh"
+   },
+   {
+    "family": "Theis",
+    "given": "Fabian J."
+   },
+   {
+    "family": "Stegle",
+    "given": "Oliver"
+   }
+  ],
+  "journal": "Nature Methods",
+  "journal_short": "Nat Methods",
+  "year": 2025,
+  "volume": "22",
+  "issue": "1",
+  "pages": "58-62",
+  "type": "article",
+  "pmid": "38509327",
+  "short_authors": "Marconato L, Palla G, Yamauchi KA, et al.",
+  "checked": "2026-10-30"
+ },
+ "visium": {
+  "doi": "10.1126/science.aaf2403",
+  "source": "crossref",
+  "title": "Visualization and analysis of gene expression in tissue sections by spatial transcriptomics",
+  "authors": [
+   {
+    "family": "Ståhl",
+    "given": "Patrik L."
+   },
+   {
+    "family": "Salmén",
+    "given": "Fredrik"
+   },
+   {
+    "family": "Vickovic",
+    "given": "Sanja"
+   },
+   {
+    "family": "Lundmark",
+    "given": "Anna"
+   },
+   {
+    "family": "Navarro",
+    "given": "José Fernández"
+   },
+   {
+    "family": "Magnusson",
+    "given": "Jens"
+   },
+   {
+    "family": "Giacomello",
+    "given": "Stefania"
+   },
+   {
+    "family": "Asp",
+    "given": "Michaela"
+   },
+   {
+    "family": "Westholm",
+    "given": "Jakub O."
+   },
+   {
+    "family": "Huss",
+    "given": "Mikael"
+   },
+   {
+    "family": "Mollbrink",
+    "given": "Annelie"
+   },
+   {
+    "family": "Linnarsson",
+    "given": "Sten"
+   },
+   {
+    "family": "Codeluppi",
+    "given": "Simone"
+   },
+   {
+    "family": "Borg",
+    "given": "Åke"
+   },
+   {
+    "family": "Pontén",
+    "given": "Fredrik"
+   },
+   {
+    "family": "Costea",
+    "given": "Paul Igor"
+   },
+   {
+    "family": "Sahlén",
+    "given": "Pelin"
+   },
+   {
+    "family": "Mulder",
+    "given": "Jan"
+   },
+   {
+    "family": "Bergmann",
+    "given": "Olaf"
+   },
+   {
+    "family": "Lundeberg",
+    "given": "Joakim"
+   },
+   {
+    "family": "Frisén",
+    "given": "Jonas"
+   }
+  ],
+  "journal": "Science",
+  "journal_short": "Science",
+  "year": 2016,
+  "volume": "353",
+  "issue": "6294",
+  "pages": "78-82",
+  "type": "article",
+  "pmid": "27365449",
+  "short_authors": "Ståhl PL, Salmén F, Vickovic S, et al.",
+  "checked": "2026-10-30"
+ },
+ "scipy": {
+  "doi": "10.1038/s41592-019-0686-2",
+  "source": "crossref",
+  "title": "SciPy 1.0: fundamental algorithms for scientific computing in Python",
+  "authors": [
+   {
+    "family": "Virtanen",
+    "given": "Pauli"
+   },
+   {
+    "family": "Gommers",
+    "given": "Ralf"
+   },
+   {
+    "family": "Oliphant",
+    "given": "Travis E."
+   },
+   {
+    "family": "Haberland",
+    "given": "Matt"
+   },
+   {
+    "family": "Reddy",
+    "given": "Tyler"
+   },
+   {
+    "family": "Cournapeau",
+    "given": "David"
+   },
+   {
+    "family": "Burovski",
+    "given": "Evgeni"
+   },
+   {
+    "family": "Peterson",
+    "given": "Pearu"
+   },
+   {
+    "family": "Weckesser",
+    "given": "Warren"
+   },
+   {
+    "family": "Bright",
+    "given": "Jonathan"
+   },
+   {
+    "family": "van der Walt",
+    "given": "Stéfan J."
+   },
+   {
+    "family": "Brett",
+    "given": "Matthew"
+   },
+   {
+    "family": "Wilson",
+    "given": "Joshua"
+   },
+   {
+    "family": "Millman",
+    "given": "K. Jarrod"
+   },
+   {
+    "family": "Mayorov",
+    "given": "Nikolay"
+   },
+   {
+    "family": "Nelson",
+    "given": "Andrew R. J."
+   },
+   {
+    "family": "Jones",
+    "given": "Eric"
+   },
+   {
+    "family": "Kern",
+    "given": "Robert"
+   },
+   {
+    "family": "Larson",
+    "given": "Eric"
+   },
+   {
+    "family": "Carey",
+    "given": "C J"
+   },
+   {
+    "family": "Polat",
+    "given": "İlhan"
+   },
+   {
+    "family": "Feng",
+    "given": "Yu"
+   },
+   {
+    "family": "Moore",
+    "given": "Eric W."
+   },
+   {
+    "family": "VanderPlas",
+    "given": "Jake"
+   },
+   {
+    "family": "Laxalde",
+    "given": "Denis"
+   },
+   {
+    "family": "Perktold",
+    "given": "Josef"
+   },
+   {
+    "family": "Cimrman",
+    "given": "Robert"
+   },
+   {
+    "family": "Henriksen",
+    "given": "Ian"
+   },
+   {
+    "family": "Quintero",
+    "given": "E. A."
+   },
+   {
+    "family": "Harris",
+    "given": "Charles R."
+   },
+   {
+    "family": "Archibald",
+    "given": "Anne M."
+   },
+   {
+    "family": "Ribeiro",
+    "given": "Antônio H."
+   },
+   {
+    "family": "Pedregosa",
+    "given": "Fabian"
+   },
+   {
+    "family": "van Mulbregt",
+    "given": "Paul"
+   },
+   {
+    "name": "SciPy 1.0 Contributors"
+   },
+   {
+    "family": "Vijaykumar",
+    "given": "Aditya"
+   },
+   {
+    "family": "Bardelli",
+    "given": "Alessandro Pietro"
+   },
+   {
+    "family": "Rothberg",
+    "given": "Alex"
+   },
+   {
+    "family": "Hilboll",
+    "given": "Andreas"
+   },
+   {
+    "family": "Kloeckner",
+    "given": "Andreas"
+   },
+   {
+    "family": "Scopatz",
+    "given": "Anthony"
+   },
+   {
+    "family": "Lee",
+    "given": "Antony"
+   },
+   {
+    "family": "Rokem",
+    "given": "Ariel"
+   },
+   {
+    "family": "Woods",
+    "given": "C. Nathan"
+   },
+   {
+    "family": "Fulton",
+    "given": "Chad"
+   },
+   {
+    "family": "Masson",
+    "given": "Charles"
+   },
+   {
+    "family": "Häggström",
+    "given": "Christian"
+   },
+   {
+    "family": "Fitzgerald",
+    "given": "Clark"
+   },
+   {
+    "family": "Nicholson",
+    "given": "David A."
+   },
+   {
+    "family": "Hagen",
+    "given": "David R."
+   },
+   {
+    "family": "Pasechnik",
+    "given": "Dmitrii V."
+   },
+   {
+    "family": "Olivetti",
+    "given": "Emanuele"
+   },
+   {
+    "family": "Martin",
+    "given": "Eric"
+   },
+   {
+    "family": "Wieser",
+    "given": "Eric"
+   },
+   {
+    "family": "Silva",
+    "given": "Fabrice"
+   },
+   {
+    "family": "Lenders",
+    "given": "Felix"
+   },
+   {
+    "family": "Wilhelm",
+    "given": "Florian"
+   },
+   {
+    "family": "Young",
+    "given": "G."
+   },
+   {
+    "family": "Price",
+    "given": "Gavin A."
+   },
+   {
+    "family": "Ingold",
+    "given": "Gert-Ludwig"
+   },
+   {
+    "family": "Allen",
+    "given": "Gregory E."
+   },
+   {
+    "family": "Lee",
+    "given": "Gregory R."
+   },
+   {
+    "family": "Audren",
+    "given": "Hervé"
+   },
+   {
+    "family": "Probst",
+    "given": "Irvin"
+   },
+   {
+    "family": "Dietrich",
+    "given": "Jörg P."
+   },
+   {
+    "family": "Silterra",
+    "given": "Jacob"
+   },
+   {
+    "family": "Webber",
+    "given": "James T"
+   },
+   {
+    "family": "Slavič",
+    "given": "Janko"
+   },
+   {
+    "family": "Nothman",
+    "given": "Joel"
+   },
+   {
+    "family": "Buchner",
+    "given": "Johannes"
+   },
+   {
+    "family": "Kulick",
+    "given": "Johannes"
+   },
+   {
+    "family": "Schönberger",
+    "given": "Johannes L."
+   },
+   {
+    "family": "de Miranda Cardoso",
+    "given": "José Vinícius"
+   },
+   {
+    "family": "Reimer",
+    "given": "Joscha"
+   },
+   {
+    "family": "Harrington",
+    "given": "Joseph"
+   },
+   {
+    "family": "Rodríguez",
+    "given": "Juan Luis Cano"
+   },
+   {
+    "family": "Nunez-Iglesias",
+    "given": "Juan"
+   },
+   {
+    "family": "Kuczynski",
+    "given": "Justin"
+   },
+   {
+    "family": "Tritz",
+    "given": "Kevin"
+   },
+   {
+    "family": "Thoma",
+    "given": "Martin"
+   },
+   {
+    "family": "Newville",
+    "given": "Matthew"
+   },
+   {
+    "family": "Kümmerer",
+    "given": "Matthias"
+   },
+   {
+    "family": "Bolingbroke",
+    "given": "Maximilian"
+   },
+   {
+    "family": "Tartre",
+    "given": "Michael"
+   },
+   {
+    "family": "Pak",
+    "given": "Mikhail"
+   },
+   {
+    "family": "Smith",
+    "given": "Nathaniel J."
+   },
+   {
+    "family": "Nowaczyk",
+    "given": "Nikolai"
+   },
+   {
+    "family": "Shebanov",
+    "given": "Nikolay"
+   },
+   {
+    "family": "Pavlyk",
+    "given": "Oleksandr"
+   },
+   {
+    "family": "Brodtkorb",
+    "given": "Per A."
+   },
+   {
+    "family": "Lee",
+    "given": "Perry"
+   },
+   {
+    "family": "McGibbon",
+    "given": "Robert T."
+   },
+   {
+    "family": "Feldbauer",
+    "given": "Roman"
+   },
+   {
+    "family": "Lewis",
+    "given": "Sam"
+   },
+   {
+    "family": "Tygier",
+    "given": "Sam"
+   },
+   {
+    "family": "Sievert",
+    "given": "Scott"
+   },
+   {
+    "family": "Vigna",
+    "given": "Sebastiano"
+   },
+   {
+    "family": "Peterson",
+    "given": "Stefan"
+   },
+   {
+    "family": "More",
+    "given": "Surhud"
+   },
+   {
+    "family": "Pudlik",
+    "given": "Tadeusz"
+   },
+   {
+    "family": "Oshima",
+    "given": "Takuya"
+   },
+   {
+    "family": "Pingel",
+    "given": "Thomas J."
+   },
+   {
+    "family": "Robitaille",
+    "given": "Thomas P."
+   },
+   {
+    "family": "Spura",
+    "given": "Thomas"
+   },
+   {
+    "family": "Jones",
+    "given": "Thouis R."
+   },
+   {
+    "family": "Cera",
+    "given": "Tim"
+   },
+   {
+    "family": "Leslie",
+    "given": "Tim"
+   },
+   {
+    "family": "Zito",
+    "given": "Tiziano"
+   },
+   {
+    "family": "Krauss",
+    "given": "Tom"
+   },
+   {
+    "family": "Upadhyay",
+    "given": "Utkarsh"
+   },
+   {
+    "family": "Halchenko",
+    "given": "Yaroslav O."
+   },
+   {
+    "family": "Vázquez-Baeza",
+    "given": "Yoshiki"
+   }
+  ],
+  "journal": "Nature Methods",
+  "journal_short": "Nat Methods",
+  "year": 2020,
+  "volume": "17",
+  "issue": "3",
+  "pages": "261-272",
+  "type": "article",
+  "pmid": "32015543",
+  "short_authors": "Virtanen P, Gommers R, Oliphant TE, et al.",
+  "checked": "2026-10-30"
+ },
+ "bh": {
+  "doi": "10.1111/j.2517-6161.1995.tb02031.x",
+  "source": "crossref",
+  "title": "Controlling the False Discovery Rate: A Practical and Powerful Approach to Multiple Testing",
+  "authors": [
+   {
+    "family": "Benjamini",
+    "given": "Yoav"
+   },
+   {
+    "family": "Hochberg",
+    "given": "Yosef"
+   }
+  ],
+  "journal": "Journal of the Royal Statistical Society Series B: Statistical Methodology",
+  "journal_short": "Journal of the Royal Statistical Society Series B: Statistical Methodology",
+  "year": 1995,
+  "volume": "57",
+  "issue": "1",
+  "pages": "289-300",
+  "type": "article",
+  "pmid": "",
+  "short_authors": "Benjamini Y, Hochberg Y",
+  "checked": "2026-10-30"
+ },
+ "heumos": {
+  "doi": "10.1038/s41576-023-00586-w",
+  "source": "crossref",
+  "title": "Best practices for single-cell analysis across modalities",
+  "authors": [
+   {
+    "family": "Heumos",
+    "given": "Lukas"
+   },
+   {
+    "family": "Schaar",
+    "given": "Anna C."
+   },
+   {
+    "family": "Lance",
+    "given": "Christopher"
+   },
+   {
+    "family": "Litinetskaya",
+    "given": "Anastasia"
+   },
+   {
+    "family": "Drost",
+    "given": "Felix"
+   },
+   {
+    "family": "Zappia",
+    "given": "Luke"
+   },
+   {
+    "family": "Lücken",
+    "given": "Malte D."
+   },
+   {
+    "family": "Strobl",
+    "given": "Daniel C."
+   },
+   {
+    "family": "Henao",
+    "given": "Juan"
+   },
+   {
+    "family": "Curion",
+    "given": "Fabiola"
+   },
+   {
+    "name": "Single-cell Best Practices Consortium"
+   },
+   {
+    "family": "Aliee",
+    "given": "Hananeh"
+   },
+   {
+    "family": "Ansari",
+    "given": "Meshal"
+   },
+   {
+    "family": "Badia-i-Mompel",
+    "given": "Pau"
+   },
+   {
+    "family": "Büttner",
+    "given": "Maren"
+   },
+   {
+    "family": "Dann",
+    "given": "Emma"
+   },
+   {
+    "family": "Dimitrov",
+    "given": "Daniel"
+   },
+   {
+    "family": "Dony",
+    "given": "Leander"
+   },
+   {
+    "family": "Frishberg",
+    "given": "Amit"
+   },
+   {
+    "family": "He",
+    "given": "Dongze"
+   },
+   {
+    "family": "Hediyeh-zadeh",
+    "given": "Soroor"
+   },
+   {
+    "family": "Hetzel",
+    "given": "Leon"
+   },
+   {
+    "family": "Ibarra",
+    "given": "Ignacio L."
+   },
+   {
+    "family": "Jones",
+    "given": "Matthew G."
+   },
+   {
+    "family": "Lotfollahi",
+    "given": "Mohammad"
+   },
+   {
+    "family": "Martens",
+    "given": "Laura D."
+   },
+   {
+    "family": "Müller",
+    "given": "Christian L."
+   },
+   {
+    "family": "Nitzan",
+    "given": "Mor"
+   },
+   {
+    "family": "Ostner",
+    "given": "Johannes"
+   },
+   {
+    "family": "Palla",
+    "given": "Giovanni"
+   },
+   {
+    "family": "Patro",
+    "given": "Rob"
+   },
+   {
+    "family": "Piran",
+    "given": "Zoe"
+   },
+   {
+    "family": "Ramírez-Suástegui",
+    "given": "Ciro"
+   },
+   {
+    "family": "Saez-Rodriguez",
+    "given": "Julio"
+   },
+   {
+    "family": "Sarkar",
+    "given": "Hirak"
+   },
+   {
+    "family": "Schubert",
+    "given": "Benjamin"
+   },
+   {
+    "family": "Sikkema",
+    "given": "Lisa"
+   },
+   {
+    "family": "Srivastava",
+    "given": "Avi"
+   },
+   {
+    "family": "Tanevski",
+    "given": "Jovan"
+   },
+   {
+    "family": "Virshup",
+    "given": "Isaac"
+   },
+   {
+    "family": "Weiler",
+    "given": "Philipp"
+   },
+   {
+    "family": "Schiller",
+    "given": "Herbert B."
+   },
+   {
+    "family": "Theis",
+    "given": "Fabian J."
+   }
+  ],
+  "journal": "Nature Reviews Genetics",
+  "journal_short": "Nat Rev Genet",
+  "year": 2023,
+  "volume": "24",
+  "issue": "8",
+  "pages": "550-572",
+  "type": "article",
+  "pmid": "37002403",
+  "short_authors": "Heumos L, Schaar AC, Lance C, et al.",
+  "checked": "2026-10-30"
+ },
+ "pipecomp": {
+  "doi": "10.1186/s13059-020-02136-7",
+  "source": "crossref",
+  "title": "pipeComp, a general framework for the evaluation of computational pipelines, reveals performant single cell RNA-seq preprocessing tools",
+  "authors": [
+   {
+    "family": "Germain",
+    "given": "Pierre-Luc"
+   },
+   {
+    "family": "Sonrel",
+    "given": "Anthony"
+   },
+   {
+    "family": "Robinson",
+    "given": "Mark D."
+   }
+  ],
+  "journal": "Genome Biology",
+  "journal_short": "Genome Biol",
+  "year": 2020,
+  "volume": "21",
+  "issue": "1",
+  "pages": "227",
+  "type": "article",
+  "pmid": "32873325",
+  "short_authors": "Germain PL, Sonrel A, Robinson MD",
+  "checked": "2026-10-30"
+ },
+ "seurat_v3": {
+  "doi": "10.1016/j.cell.2019.05.031",
+  "source": "crossref",
+  "title": "Comprehensive Integration of Single-Cell Data",
+  "authors": [
+   {
+    "family": "Stuart",
+    "given": "Tim"
+   },
+   {
+    "family": "Butler",
+    "given": "Andrew"
+   },
+   {
+    "family": "Hoffman",
+    "given": "Paul"
+   },
+   {
+    "family": "Hafemeister",
+    "given": "Christoph"
+   },
+   {
+    "family": "Papalexi",
+    "given": "Efthymia"
+   },
+   {
+    "family": "Mauck",
+    "given": "William M."
+   },
+   {
+    "family": "Hao",
+    "given": "Yuhan"
+   },
+   {
+    "family": "Stoeckius",
+    "given": "Marlon"
+   },
+   {
+    "family": "Smibert",
+    "given": "Peter"
+   },
+   {
+    "family": "Satija",
+    "given": "Rahul"
+   }
+  ],
+  "journal": "Cell",
+  "journal_short": "Cell",
+  "year": 2019,
+  "volume": "177",
+  "issue": "7",
+  "pages": "1888-1902.e21",
+  "type": "article",
+  "pmid": "31178118",
+  "short_authors": "Stuart T, Butler A, Hoffman P, et al.",
+  "checked": "2026-10-30"
+ },
+ "banksy": {
+  "doi": "10.1038/s41588-024-01664-3",
+  "source": "crossref",
+  "title": "BANKSY unifies cell typing and tissue domain segmentation for scalable spatial omics data analysis",
+  "authors": [
+   {
+    "family": "Singhal",
+    "given": "Vipul"
+   },
+   {
+    "family": "Chou",
+    "given": "Nigel"
+   },
+   {
+    "family": "Lee",
+    "given": "Joseph"
+   },
+   {
+    "family": "Yue",
+    "given": "Yifei"
+   },
+   {
+    "family": "Liu",
+    "given": "Jinyue"
+   },
+   {
+    "family": "Chock",
+    "given": "Wan Kee"
+   },
+   {
+    "family": "Lin",
+    "given": "Li"
+   },
+   {
+    "family": "Chang",
+    "given": "Yun-Ching"
+   },
+   {
+    "family": "Teo",
+    "given": "Erica Mei Ling"
+   },
+   {
+    "family": "Aow",
+    "given": "Jonathan"
+   },
+   {
+    "family": "Lee",
+    "given": "Hwee Kuan"
+   },
+   {
+    "family": "Chen",
+    "given": "Kok Hao"
+   },
+   {
+    "family": "Prabhakar",
+    "given": "Shyam"
+   }
+  ],
+  "journal": "Nature Genetics",
+  "journal_short": "Nat Genet",
+  "year": 2024,
+  "volume": "56",
+  "issue": "3",
+  "pages": "431-441",
+  "type": "article",
+  "pmid": "38413725",
+  "short_authors": "Singhal V, Chou N, Lee J, et al.",
+  "checked": "2026-10-30"
+ },
+ "harmony": {
+  "doi": "10.1038/s41592-019-0619-0",
+  "source": "crossref",
+  "title": "Fast, sensitive and accurate integration of single-cell data with Harmony",
+  "authors": [
+   {
+    "family": "Korsunsky",
+    "given": "Ilya"
+   },
+   {
+    "family": "Millard",
+    "given": "Nghia"
+   },
+   {
+    "family": "Fan",
+    "given": "Jean"
+   },
+   {
+    "family": "Slowikowski",
+    "given": "Kamil"
+   },
+   {
+    "family": "Zhang",
+    "given": "Fan"
+   },
+   {
+    "family": "Wei",
+    "given": "Kevin"
+   },
+   {
+    "family": "Baglaenko",
+    "given": "Yuriy"
+   },
+   {
+    "family": "Brenner",
+    "given": "Michael"
+   },
+   {
+    "family": "Loh",
+    "given": "Po-ru"
+   },
+   {
+    "family": "Raychaudhuri",
+    "given": "Soumya"
+   }
+  ],
+  "journal": "Nature Methods",
+  "journal_short": "Nat Methods",
+  "year": 2019,
+  "volume": "16",
+  "issue": "12",
+  "pages": "1289-1296",
+  "type": "article",
+  "pmid": "31740819",
+  "short_authors": "Korsunsky I, Millard N, Fan J, et al.",
+  "checked": "2026-10-30"
+ },
+ "leiden": {
+  "doi": "10.1038/s41598-019-41695-z",
+  "source": "crossref",
+  "title": "From Louvain to Leiden: guaranteeing well-connected communities",
+  "authors": [
+   {
+    "family": "Traag",
+    "given": "V. A."
+   },
+   {
+    "family": "Waltman",
+    "given": "L."
+   },
+   {
+    "family": "van Eck",
+    "given": "N. J."
+   }
+  ],
+  "journal": "Scientific Reports",
+  "journal_short": "Sci Rep",
+  "year": 2019,
+  "volume": "9",
+  "issue": "1",
+  "pages": "5233",
+  "type": "article",
+  "pmid": "30914743",
+  "short_authors": "Traag VA, Waltman L, van Eck NJ",
+  "checked": "2026-10-30"
+ },
+ "umap": {
+  "doi": "10.21105/joss.00861",
+  "source": "crossref",
+  "title": "UMAP: Uniform Manifold Approximation and Projection",
+  "authors": [
+   {
+    "family": "McInnes",
+    "given": "Leland"
+   },
+   {
+    "family": "Healy",
+    "given": "John"
+   },
+   {
+    "family": "Saul",
+    "given": "Nathaniel"
+   },
+   {
+    "family": "Großberger",
+    "given": "Lukas"
+   }
+  ],
+  "journal": "Journal of Open Source Software",
+  "journal_short": "JOSS",
+  "year": 2018,
+  "volume": "3",
+  "issue": "29",
+  "pages": "861",
+  "type": "article",
+  "pmid": "",
+  "short_authors": "McInnes L, Healy J, Saul N, Großberger L",
+  "checked": "2026-10-30"
+ },
+ "sdmbench": {
+  "doi": "10.1038/s41592-024-02215-8",
+  "source": "crossref",
+  "title": "Benchmarking spatial clustering methods with spatially resolved transcriptomics data",
+  "authors": [
+   {
+    "family": "Yuan",
+    "given": "Zhiyuan"
+   },
+   {
+    "family": "Zhao",
+    "given": "Fangyuan"
+   },
+   {
+    "family": "Lin",
+    "given": "Senlin"
+   },
+   {
+    "family": "Zhao",
+    "given": "Yu"
+   },
+   {
+    "family": "Yao",
+    "given": "Jianhua"
+   },
+   {
+    "family": "Cui",
+    "given": "Yan"
+   },
+   {
+    "family": "Zhang",
+    "given": "Xiao-Yong"
+   },
+   {
+    "family": "Zhao",
+    "given": "Yi"
+   }
+  ],
+  "journal": "Nature Methods",
+  "journal_short": "Nat Methods",
+  "year": 2024,
+  "volume": "21",
+  "issue": "4",
+  "pages": "712-722",
+  "type": "article",
+  "pmid": "38491270",
+  "short_authors": "Yuan Z, Zhao F, Lin S, et al.",
+  "checked": "2026-10-30"
+ },
+ "seurat_2015": {
+  "doi": "10.1038/nbt.3192",
+  "source": "crossref",
+  "title": "Spatial reconstruction of single-cell gene expression data",
+  "authors": [
+   {
+    "family": "Satija",
+    "given": "Rahul"
+   },
+   {
+    "family": "Farrell",
+    "given": "Jeffrey A"
+   },
+   {
+    "family": "Gennert",
+    "given": "David"
+   },
+   {
+    "family": "Schier",
+    "given": "Alexander F"
+   },
+   {
+    "family": "Regev",
+    "given": "Aviv"
+   }
+  ],
+  "journal": "Nature Biotechnology",
+  "journal_short": "Nat Biotechnol",
+  "year": 2015,
+  "volume": "33",
+  "issue": "5",
+  "pages": "495-502",
+  "type": "article",
+  "pmid": "25867923",
+  "short_authors": "Satija R, Farrell JA, Gennert D, Schier AF, Regev A",
+  "checked": "2026-10-30"
+ },
+ "panglaodb": {
+  "doi": "10.1093/database/baz046",
+  "source": "crossref",
+  "title": "PanglaoDB: a web server for exploration of mouse and human single-cell RNA sequencing data",
+  "authors": [
+   {
+    "family": "Franzén",
+    "given": "Oscar"
+   },
+   {
+    "family": "Gan",
+    "given": "Li-Ming"
+   },
+   {
+    "family": "Björkegren",
+    "given": "Johan L M"
+   }
+  ],
+  "journal": "Database",
+  "journal_short": "Database",
+  "year": 2019,
+  "volume": "2019",
+  "issue": "",
+  "pages": "",
+  "type": "article",
+  "pmid": "30951143",
+  "short_authors": "Franzén O, Gan LM, Björkegren JLM",
+  "checked": "2026-10-30"
+ },
+ "omnipath": {
+  "doi": "10.15252/msb.20209923",
+  "source": "crossref",
+  "title": "Integrated intra‐ and intercellular signaling knowledge for multicellular omics analysis",
+  "authors": [
+   {
+    "family": "Türei",
+    "given": "Dénes"
+   },
+   {
+    "family": "Valdeolivas",
+    "given": "Alberto"
+   },
+   {
+    "family": "Gul",
+    "given": "Lejla"
+   },
+   {
+    "family": "Palacio‐Escat",
+    "given": "Nicolàs"
+   },
+   {
+    "family": "Klein",
+    "given": "Michal"
+   },
+   {
+    "family": "Ivanova",
+    "given": "Olga"
+   },
+   {
+    "family": "Ölbei",
+    "given": "Márton"
+   },
+   {
+    "family": "Gábor",
+    "given": "Attila"
+   },
+   {
+    "family": "Theis",
+    "given": "Fabian"
+   },
+   {
+    "family": "Módos",
+    "given": "Dezső"
+   },
+   {
+    "family": "Korcsmáros",
+    "given": "Tamás"
+   },
+   {
+    "family": "Saez‐Rodriguez",
+    "given": "Julio"
+   }
+  ],
+  "journal": "Molecular Systems Biology",
+  "journal_short": "Mol Syst Biol",
+  "year": 2021,
+  "volume": "17",
+  "issue": "3",
+  "pages": "MSB20209923",
+  "type": "article",
+  "pmid": "33749993",
+  "short_authors": "Türei D, Valdeolivas A, Gul L, et al.",
+  "checked": "2026-10-30"
+ },
+ "moran": {
+  "doi": "10.1093/biomet/37.1-2.17",
+  "source": "crossref",
+  "title": "Notes on continuous stochastic phenomena",
+  "authors": [
+   {
+    "family": "Moran",
+    "given": "P. A. P."
+   }
+  ],
+  "journal": "Biometrika",
+  "journal_short": "Biometrika",
+  "year": 1950,
+  "volume": "37",
+  "issue": "1-2",
+  "pages": "17-23",
+  "type": "article",
+  "pmid": "",
+  "short_authors": "Moran PAP",
+  "checked": "2026-10-30"
+ },
+ "geary": {
+  "doi": "10.2307/2986645",
+  "source": "crossref",
+  "title": "The Contiguity Ratio and Statistical Mapping",
+  "authors": [
+   {
+    "family": "Geary",
+    "given": "R. C."
+   }
+  ],
+  "journal": "The Incorporated Statistician",
+  "journal_short": "The Incorporated Statistician",
+  "year": 1954,
+  "volume": "5",
+  "issue": "3",
+  "pages": "115",
+  "type": "article",
+  "pmid": "",
+  "short_authors": "Geary RC",
+  "checked": "2026-10-30"
+ },
+ "spatialde": {
+  "doi": "10.1038/nmeth.4636",
+  "source": "crossref",
+  "title": "SpatialDE: identification of spatially variable genes",
+  "authors": [
+   {
+    "family": "Svensson",
+    "given": "Valentine"
+   },
+   {
+    "family": "Teichmann",
+    "given": "Sarah A"
+   },
+   {
+    "family": "Stegle",
+    "given": "Oliver"
+   }
+  ],
+  "journal": "Nature Methods",
+  "journal_short": "Nat Methods",
+  "year": 2018,
+  "volume": "15",
+  "issue": "5",
+  "pages": "343-346",
+  "type": "article",
+  "pmid": "29553579",
+  "short_authors": "Svensson V, Teichmann SA, Stegle O",
+  "checked": "2026-10-30"
+ },
+ "deseq2": {
+  "doi": "10.1186/s13059-014-0550-8",
+  "source": "crossref",
+  "title": "Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2",
+  "authors": [
+   {
+    "family": "Love",
+    "given": "Michael I"
+   },
+   {
+    "family": "Huber",
+    "given": "Wolfgang"
+   },
+   {
+    "family": "Anders",
+    "given": "Simon"
+   }
+  ],
+  "journal": "Genome Biology",
+  "journal_short": "Genome Biol",
+  "year": 2014,
+  "volume": "15",
+  "issue": "12",
+  "pages": "550",
+  "type": "article",
+  "pmid": "25516281",
+  "short_authors": "Love MI, Huber W, Anders S",
+  "checked": "2026-10-30"
+ },
+ "pydeseq2": {
+  "doi": "10.1093/bioinformatics/btad547",
+  "source": "crossref",
+  "title": "PyDESeq2: a python package for bulk RNA-seq differential expression analysis",
+  "authors": [
+   {
+    "family": "Muzellec",
+    "given": "Boris"
+   },
+   {
+    "family": "Teleńczuk",
+    "given": "Maria"
+   },
+   {
+    "family": "Cabeli",
+    "given": "Vincent"
+   },
+   {
+    "family": "Andreux",
+    "given": "Mathieu"
+   }
+  ],
+  "journal": "Bioinformatics",
+  "journal_short": "Bioinformatics",
+  "year": 2023,
+  "volume": "39",
+  "issue": "9",
+  "pages": "btad547",
+  "type": "article",
+  "pmid": "37669147",
+  "short_authors": "Muzellec B, Teleńczuk M, Cabeli V, Andreux M",
+  "checked": "2026-10-30"
+ },
+ "squair": {
+  "doi": "10.1038/s41467-021-25960-2",
+  "source": "crossref",
+  "title": "Confronting false discoveries in single-cell differential expression",
+  "authors": [
+   {
+    "family": "Squair",
+    "given": "Jordan W."
+   },
+   {
+    "family": "Gautier",
+    "given": "Matthieu"
+   },
+   {
+    "family": "Kathe",
+    "given": "Claudia"
+   },
+   {
+    "family": "Anderson",
+    "given": "Mark A."
+   },
+   {
+    "family": "James",
+    "given": "Nicholas D."
+   },
+   {
+    "family": "Hutson",
+    "given": "Thomas H."
+   },
+   {
+    "family": "Hudelle",
+    "given": "Rémi"
+   },
+   {
+    "family": "Qaiser",
+    "given": "Taha"
+   },
+   {
+    "family": "Matson",
+    "given": "Kaya J. E."
+   },
+   {
+    "family": "Barraud",
+    "given": "Quentin"
+   },
+   {
+    "family": "Levine",
+    "given": "Ariel J."
+   },
+   {
+    "family": "La Manno",
+    "given": "Gioele"
+   },
+   {
+    "family": "Skinnider",
+    "given": "Michael A."
+   },
+   {
+    "family": "Courtine",
+    "given": "Grégoire"
+   }
+  ],
+  "journal": "Nature Communications",
+  "journal_short": "Nat Commun",
+  "year": 2021,
+  "volume": "12",
+  "issue": "1",
+  "pages": "5692",
+  "type": "article",
+  "pmid": "34584091",
+  "short_authors": "Squair JW, Gautier M, Kathe C, et al.",
+  "checked": "2026-10-30"
+ },
+ "sccoda": {
+  "doi": "10.1038/s41467-021-27150-6",
+  "source": "crossref",
+  "title": "scCODA is a Bayesian model for compositional single-cell data analysis",
+  "authors": [
+   {
+    "family": "Büttner",
+    "given": "M."
+   },
+   {
+    "family": "Ostner",
+    "given": "J."
+   },
+   {
+    "family": "Müller",
+    "given": "C. L."
+   },
+   {
+    "family": "Theis",
+    "given": "F. J."
+   },
+   {
+    "family": "Schubert",
+    "given": "B."
+   }
+  ],
+  "journal": "Nature Communications",
+  "journal_short": "Nat Commun",
+  "year": 2021,
+  "volume": "12",
+  "issue": "1",
+  "pages": "6876",
+  "type": "article",
+  "pmid": "34824236",
+  "short_authors": "Büttner M, Ostner J, Müller CL, Theis FJ, Schubert B",
+  "checked": "2026-10-30"
+ },
+ "aitchison": {
+  "doi": "10.1111/j.2517-6161.1982.tb01195.x",
+  "source": "crossref",
+  "title": "The Statistical Analysis of Compositional Data",
+  "authors": [
+   {
+    "family": "Aitchison",
+    "given": "J."
+   }
+  ],
+  "journal": "Journal of the Royal Statistical Society Series B: Statistical Methodology",
+  "journal_short": "Journal of the Royal Statistical Society Series B: Statistical Methodology",
+  "year": 1982,
+  "volume": "44",
+  "issue": "2",
+  "pages": "139-160",
+  "type": "article",
+  "pmid": "",
+  "short_authors": "Aitchison J",
+  "checked": "2026-10-30"
+ },
+ "liana_plus": {
+  "doi": "10.1038/s41556-024-01469-w",
+  "source": "crossref",
+  "title": "LIANA+ provides an all-in-one framework for cell–cell communication inference",
+  "authors": [
+   {
+    "family": "Dimitrov",
+    "given": "Daniel"
+   },
+   {
+    "family": "Schäfer",
+    "given": "Philipp Sven Lars"
+   },
+   {
+    "family": "Farr",
+    "given": "Elias"
+   },
+   {
+    "family": "Rodriguez-Mier",
+    "given": "Pablo"
+   },
+   {
+    "family": "Lobentanzer",
+    "given": "Sebastian"
+   },
+   {
+    "family": "Badia-i-Mompel",
+    "given": "Pau"
+   },
+   {
+    "family": "Dugourd",
+    "given": "Aurelien"
+   },
+   {
+    "family": "Tanevski",
+    "given": "Jovan"
+   },
+   {
+    "family": "Ramirez Flores",
+    "given": "Ricardo Omar"
+   },
+   {
+    "family": "Saez-Rodriguez",
+    "given": "Julio"
+   }
+  ],
+  "journal": "Nature Cell Biology",
+  "journal_short": "Nat Cell Biol",
+  "year": 2024,
+  "volume": "26",
+  "issue": "9",
+  "pages": "1613-1622",
+  "type": "article",
+  "pmid": "39223377",
+  "short_authors": "Dimitrov D, Schäfer PSL, Farr E, et al.",
+  "checked": "2026-10-30"
+ },
+ "liana": {
+  "doi": "10.1038/s41467-022-30755-0",
+  "source": "crossref",
+  "title": "Comparison of methods and resources for cell-cell communication inference from single-cell RNA-Seq data",
+  "authors": [
+   {
+    "family": "Dimitrov",
+    "given": "Daniel"
+   },
+   {
+    "family": "Türei",
+    "given": "Dénes"
+   },
+   {
+    "family": "Garrido-Rodriguez",
+    "given": "Martin"
+   },
+   {
+    "family": "Burmedi",
+    "given": "Paul L."
+   },
+   {
+    "family": "Nagai",
+    "given": "James S."
+   },
+   {
+    "family": "Boys",
+    "given": "Charlotte"
+   },
+   {
+    "family": "Ramirez Flores",
+    "given": "Ricardo O."
+   },
+   {
+    "family": "Kim",
+    "given": "Hyojin"
+   },
+   {
+    "family": "Szalai",
+    "given": "Bence"
+   },
+   {
+    "family": "Costa",
+    "given": "Ivan G."
+   },
+   {
+    "family": "Valdeolivas",
+    "given": "Alberto"
+   },
+   {
+    "family": "Dugourd",
+    "given": "Aurélien"
+   },
+   {
+    "family": "Saez-Rodriguez",
+    "given": "Julio"
+   }
+  ],
+  "journal": "Nature Communications",
+  "journal_short": "Nat Commun",
+  "year": 2022,
+  "volume": "13",
+  "issue": "1",
+  "pages": "3224",
+  "type": "article",
+  "pmid": "35680885",
+  "short_authors": "Dimitrov D, Türei D, Garrido-Rodriguez M, et al.",
+  "checked": "2026-10-30"
+ },
+ "rra": {
+  "doi": "10.1093/bioinformatics/btr709",
+  "source": "crossref",
+  "title": "Robust rank aggregation for gene list integration and meta-analysis",
+  "authors": [
+   {
+    "family": "Kolde",
+    "given": "Raivo"
+   },
+   {
+    "family": "Laur",
+    "given": "Sven"
+   },
+   {
+    "family": "Adler",
+    "given": "Priit"
+   },
+   {
+    "family": "Vilo",
+    "given": "Jaak"
+   }
+  ],
+  "journal": "Bioinformatics",
+  "journal_short": "Bioinformatics",
+  "year": 2012,
+  "volume": "28",
+  "issue": "4",
+  "pages": "573-580",
+  "type": "article",
+  "pmid": "22247279",
+  "short_authors": "Kolde R, Laur S, Adler P, Vilo J",
+  "checked": "2026-10-30"
+ },
+ "cellphonedb": {
+  "doi": "10.1038/s41596-020-0292-x",
+  "source": "crossref",
+  "title": "CellPhoneDB: inferring cell–cell communication from combined expression of multi-subunit ligand–receptor complexes",
+  "authors": [
+   {
+    "family": "Efremova",
+    "given": "Mirjana"
+   },
+   {
+    "family": "Vento-Tormo",
+    "given": "Miquel"
+   },
+   {
+    "family": "Teichmann",
+    "given": "Sarah A."
+   },
+   {
+    "family": "Vento-Tormo",
+    "given": "Roser"
+   }
+  ],
+  "journal": "Nature Protocols",
+  "journal_short": "Nat Protoc",
+  "year": 2020,
+  "volume": "15",
+  "issue": "4",
+  "pages": "1484-1506",
+  "type": "article",
+  "pmid": "32103204",
+  "short_authors": "Efremova M, Vento-Tormo M, Teichmann SA, Vento-Tormo R",
+  "checked": "2026-10-30"
+ },
+ "connectome": {
+  "doi": "10.1038/s41598-022-07959-x",
+  "source": "crossref",
+  "title": "Computation and visualization of cell–cell signaling topologies in single-cell systems data using Connectome",
+  "authors": [
+   {
+    "family": "Raredon",
+    "given": "Micha Sam Brickman"
+   },
+   {
+    "family": "Yang",
+    "given": "Junchen"
+   },
+   {
+    "family": "Garritano",
+    "given": "James"
+   },
+   {
+    "family": "Wang",
+    "given": "Meng"
+   },
+   {
+    "family": "Kushnir",
+    "given": "Dan"
+   },
+   {
+    "family": "Schupp",
+    "given": "Jonas Christian"
+   },
+   {
+    "family": "Adams",
+    "given": "Taylor S."
+   },
+   {
+    "family": "Greaney",
+    "given": "Allison M."
+   },
+   {
+    "family": "Leiby",
+    "given": "Katherine L."
+   },
+   {
+    "family": "Kaminski",
+    "given": "Naftali"
+   },
+   {
+    "family": "Kluger",
+    "given": "Yuval"
+   },
+   {
+    "family": "Levchenko",
+    "given": "Andre"
+   },
+   {
+    "family": "Niklason",
+    "given": "Laura E."
+   }
+  ],
+  "journal": "Scientific Reports",
+  "journal_short": "Sci Rep",
+  "year": 2022,
+  "volume": "12",
+  "issue": "1",
+  "pages": "4187",
+  "type": "article",
+  "pmid": "35264704",
+  "short_authors": "Raredon MSB, Yang J, Garritano J, et al.",
+  "checked": "2026-10-30"
+ },
+ "natmi": {
+  "doi": "10.1038/s41467-020-18873-z",
+  "source": "crossref",
+  "title": "Predicting cell-to-cell communication networks using NATMI",
+  "authors": [
+   {
+    "family": "Hou",
+    "given": "Rui"
+   },
+   {
+    "family": "Denisenko",
+    "given": "Elena"
+   },
+   {
+    "family": "Ong",
+    "given": "Huan Ting"
+   },
+   {
+    "family": "Ramilowski",
+    "given": "Jordan A."
+   },
+   {
+    "family": "Forrest",
+    "given": "Alistair R. R."
+   }
+  ],
+  "journal": "Nature Communications",
+  "journal_short": "Nat Commun",
+  "year": 2020,
+  "volume": "11",
+  "issue": "1",
+  "pages": "5011",
+  "type": "article",
+  "pmid": "33024107",
+  "short_authors": "Hou R, Denisenko E, Ong HT, Ramilowski JA, Forrest ARR",
+  "checked": "2026-10-30"
+ },
+ "singlecellsignalr": {
+  "doi": "10.1093/nar/gkaa183",
+  "source": "crossref",
+  "title": "SingleCellSignalR: inference of intercellular networks from single-cell transcriptomics",
+  "authors": [
+   {
+    "family": "Cabello-Aguilar",
+    "given": "Simon"
+   },
+   {
+    "family": "Alame",
+    "given": "Mélissa"
+   },
+   {
+    "family": "Kon-Sun-Tack",
+    "given": "Fabien"
+   },
+   {
+    "family": "Fau",
+    "given": "Caroline"
+   },
+   {
+    "family": "Lacroix",
+    "given": "Matthieu"
+   },
+   {
+    "family": "Colinge",
+    "given": "Jacques"
+   }
+  ],
+  "journal": "Nucleic Acids Research",
+  "journal_short": "Nucleic Acids Research",
+  "year": 2020,
+  "volume": "48",
+  "issue": "10",
+  "pages": "e55-e55",
+  "type": "article",
+  "pmid": "32196115",
+  "short_authors": "Cabello-Aguilar S, Alame M, Kon-Sun-Tack F, Fau C, Lacroix M, Colinge J",
+  "checked": "2026-10-30"
+ },
+ "schurch": {
+  "doi": "10.1016/j.cell.2020.07.005",
+  "source": "crossref",
+  "title": "Coordinated Cellular Neighborhoods Orchestrate Antitumoral Immunity at the Colorectal Cancer Invasive Front",
+  "authors": [
+   {
+    "family": "Schürch",
+    "given": "Christian M."
+   },
+   {
+    "family": "Bhate",
+    "given": "Salil S."
+   },
+   {
+    "family": "Barlow",
+    "given": "Graham L."
+   },
+   {
+    "family": "Phillips",
+    "given": "Darci J."
+   },
+   {
+    "family": "Noti",
+    "given": "Luca"
+   },
+   {
+    "family": "Zlobec",
+    "given": "Inti"
+   },
+   {
+    "family": "Chu",
+    "given": "Pauline"
+   },
+   {
+    "family": "Black",
+    "given": "Sarah"
+   },
+   {
+    "family": "Demeter",
+    "given": "Janos"
+   },
+   {
+    "family": "McIlwain",
+    "given": "David R."
+   },
+   {
+    "family": "Kinoshita",
+    "given": "Shigemi"
+   },
+   {
+    "family": "Samusik",
+    "given": "Nikolay"
+   },
+   {
+    "family": "Goltsev",
+    "given": "Yury"
+   },
+   {
+    "family": "Nolan",
+    "given": "Garry P."
+   }
+  ],
+  "journal": "Cell",
+  "journal_short": "Cell",
+  "year": 2020,
+  "volume": "182",
+  "issue": "5",
+  "pages": "1341-1359.e19",
+  "type": "article",
+  "pmid": "32763154",
+  "short_authors": "Schürch CM, Bhate SS, Barlow GL, et al.",
+  "checked": "2026-10-30"
+ },
+ "cellcharter": {
+  "doi": "10.1038/s41588-023-01588-4",
+  "source": "crossref",
+  "title": "CellCharter reveals spatial cell niches associated with tissue remodeling and cell plasticity",
+  "authors": [
+   {
+    "family": "Varrone",
+    "given": "Marco"
+   },
+   {
+    "family": "Tavernari",
+    "given": "Daniele"
+   },
+   {
+    "family": "Santamaria-Martínez",
+    "given": "Albert"
+   },
+   {
+    "family": "Walsh",
+    "given": "Logan A."
+   },
+   {
+    "family": "Ciriello",
+    "given": "Giovanni"
+   }
+  ],
+  "journal": "Nature Genetics",
+  "journal_short": "Nat Genet",
+  "year": 2024,
+  "volume": "56",
+  "issue": "1",
+  "pages": "74-84",
+  "type": "article",
+  "pmid": "38066188",
+  "short_authors": "Varrone M, Tavernari D, Santamaria-Martínez A, Walsh LA, Ciriello G",
+  "checked": "2026-10-30"
+ },
+ "lloyd": {
+  "doi": "10.1109/TIT.1982.1056489",
+  "source": "crossref",
+  "title": "Least squares quantization in PCM",
+  "authors": [
+   {
+    "family": "Lloyd",
+    "given": "S."
+   }
+  ],
+  "journal": "IEEE Transactions on Information Theory",
+  "journal_short": "IEEE Trans. Inform. Theory",
+  "year": 1982,
+  "volume": "28",
+  "issue": "2",
+  "pages": "129-137",
+  "type": "article",
+  "pmid": "",
+  "short_authors": "Lloyd S",
+  "checked": "2026-10-30"
+ },
+ "rousseeuw": {
+  "doi": "10.1016/0377-0427(87)90125-7",
+  "source": "crossref",
+  "title": "Silhouettes: A graphical aid to the interpretation and validation of cluster analysis",
+  "authors": [
+   {
+    "family": "Rousseeuw",
+    "given": "Peter J."
+   }
+  ],
+  "journal": "Journal of Computational and Applied Mathematics",
+  "journal_short": "Journal of Computational and Applied Mathematics",
+  "year": 1987,
+  "volume": "20",
+  "issue": "",
+  "pages": "53-65",
+  "type": "article",
+  "pmid": "",
+  "short_authors": "Rousseeuw PJ",
+  "checked": "2026-10-30"
+ },
+ "cell2location": {
+  "doi": "10.1038/s41587-021-01139-4",
+  "source": "crossref",
+  "title": "Cell2location maps fine-grained cell types in spatial transcriptomics",
+  "authors": [
+   {
+    "family": "Kleshchevnikov",
+    "given": "Vitalii"
+   },
+   {
+    "family": "Shmatko",
+    "given": "Artem"
+   },
+   {
+    "family": "Dann",
+    "given": "Emma"
+   },
+   {
+    "family": "Aivazidis",
+    "given": "Alexander"
+   },
+   {
+    "family": "King",
+    "given": "Hamish W."
+   },
+   {
+    "family": "Li",
+    "given": "Tong"
+   },
+   {
+    "family": "Elmentaite",
+    "given": "Rasa"
+   },
+   {
+    "family": "Lomakin",
+    "given": "Artem"
+   },
+   {
+    "family": "Kedlian",
+    "given": "Veronika"
+   },
+   {
+    "family": "Gayoso",
+    "given": "Adam"
+   },
+   {
+    "family": "Jain",
+    "given": "Mika Sarkin"
+   },
+   {
+    "family": "Park",
+    "given": "Jun Sung"
+   },
+   {
+    "family": "Ramona",
+    "given": "Lauma"
+   },
+   {
+    "family": "Tuck",
+    "given": "Elizabeth"
+   },
+   {
+    "family": "Arutyunyan",
+    "given": "Anna"
+   },
+   {
+    "family": "Vento-Tormo",
+    "given": "Roser"
+   },
+   {
+    "family": "Gerstung",
+    "given": "Moritz"
+   },
+   {
+    "family": "James",
+    "given": "Louisa"
+   },
+   {
+    "family": "Stegle",
+    "given": "Oliver"
+   },
+   {
+    "family": "Bayraktar",
+    "given": "Omer Ali"
+   }
+  ],
+  "journal": "Nature Biotechnology",
+  "journal_short": "Nat Biotechnol",
+  "year": 2022,
+  "volume": "40",
+  "issue": "5",
+  "pages": "661-671",
+  "type": "article",
+  "pmid": "35027729",
+  "short_authors": "Kleshchevnikov V, Shmatko A, Dann E, et al.",
+  "checked": "2026-10-30"
+ },
+ "scvi_tools": {
+  "doi": "10.1038/s41587-021-01206-w",
+  "source": "crossref",
+  "title": "A Python library for probabilistic analysis of single-cell omics data",
+  "authors": [
+   {
+    "family": "Gayoso",
+    "given": "Adam"
+   },
+   {
+    "family": "Lopez",
+    "given": "Romain"
+   },
+   {
+    "family": "Xing",
+    "given": "Galen"
+   },
+   {
+    "family": "Boyeau",
+    "given": "Pierre"
+   },
+   {
+    "family": "Valiollah Pour Amiri",
+    "given": "Valeh"
+   },
+   {
+    "family": "Hong",
+    "given": "Justin"
+   },
+   {
+    "family": "Wu",
+    "given": "Katherine"
+   },
+   {
+    "family": "Jayasuriya",
+    "given": "Michael"
+   },
+   {
+    "family": "Mehlman",
+    "given": "Edouard"
+   },
+   {
+    "family": "Langevin",
+    "given": "Maxime"
+   },
+   {
+    "family": "Liu",
+    "given": "Yining"
+   },
+   {
+    "family": "Samaran",
+    "given": "Jules"
+   },
+   {
+    "family": "Misrachi",
+    "given": "Gabriel"
+   },
+   {
+    "family": "Nazaret",
+    "given": "Achille"
+   },
+   {
+    "family": "Clivio",
+    "given": "Oscar"
+   },
+   {
+    "family": "Xu",
+    "given": "Chenling"
+   },
+   {
+    "family": "Ashuach",
+    "given": "Tal"
+   },
+   {
+    "family": "Gabitto",
+    "given": "Mariano"
+   },
+   {
+    "family": "Lotfollahi",
+    "given": "Mohammad"
+   },
+   {
+    "family": "Svensson",
+    "given": "Valentine"
+   },
+   {
+    "family": "da Veiga Beltrame",
+    "given": "Eduardo"
+   },
+   {
+    "family": "Kleshchevnikov",
+    "given": "Vitalii"
+   },
+   {
+    "family": "Talavera-López",
+    "given": "Carlos"
+   },
+   {
+    "family": "Pachter",
+    "given": "Lior"
+   },
+   {
+    "family": "Theis",
+    "given": "Fabian J."
+   },
+   {
+    "family": "Streets",
+    "given": "Aaron"
+   },
+   {
+    "family": "Jordan",
+    "given": "Michael I."
+   },
+   {
+    "family": "Regier",
+    "given": "Jeffrey"
+   },
+   {
+    "family": "Yosef",
+    "given": "Nir"
+   }
+  ],
+  "journal": "Nature Biotechnology",
+  "journal_short": "Nat Biotechnol",
+  "year": 2022,
+  "volume": "40",
+  "issue": "2",
+  "pages": "163-166",
+  "type": "article",
+  "pmid": "35132262",
+  "short_authors": "Gayoso A, Lopez R, Xing G, et al.",
+  "checked": "2026-10-30"
+ },
+ "moses_pachter": {
+  "doi": "10.1038/s41592-022-01409-2",
+  "source": "crossref",
+  "title": "Museum of spatial transcriptomics",
+  "authors": [
+   {
+    "family": "Moses",
+    "given": "Lambda"
+   },
+   {
+    "family": "Pachter",
+    "given": "Lior"
+   }
+  ],
+  "journal": "Nature Methods",
+  "journal_short": "Nat Methods",
+  "year": 2022,
+  "volume": "19",
+  "issue": "5",
+  "pages": "534-546",
+  "type": "article",
+  "pmid": "35273392",
+  "short_authors": "Moses L, Pachter L",
+  "checked": "2026-10-30"
+ },
+ "spotless": {
+  "doi": "10.7554/eLife.88431",
+  "source": "crossref",
+  "title": "Spotless, a reproducible pipeline for benchmarking cell type deconvolution in spatial transcriptomics",
+  "authors": [
+   {
+    "family": "Sang-aram",
+    "given": "Chananchida"
+   },
+   {
+    "family": "Browaeys",
+    "given": "Robin"
+   },
+   {
+    "family": "Seurinck",
+    "given": "Ruth"
+   },
+   {
+    "family": "Saeys",
+    "given": "Yvan"
+   }
+  ],
+  "journal": "eLife",
+  "journal_short": "eLife",
+  "year": 2024,
+  "volume": "12",
+  "issue": "",
+  "pages": "RP88431",
+  "type": "article",
+  "pmid": "38787371",
+  "short_authors": "Sang-aram C, Browaeys R, Seurinck R, Saeys Y",
+  "checked": "2026-10-30"
+ },
+ "matplotlib": {
+  "doi": "10.1109/MCSE.2007.55",
+  "source": "crossref",
+  "title": "Matplotlib: A 2D Graphics Environment",
+  "authors": [
+   {
+    "family": "Hunter",
+    "given": "John D."
+   }
+  ],
+  "journal": "Computing in Science & Engineering",
+  "journal_short": "Comput. Sci. Eng.",
+  "year": 2007,
+  "volume": "9",
+  "issue": "3",
+  "pages": "90-95",
+  "type": "article",
+  "pmid": "",
+  "short_authors": "Hunter JD",
+  "checked": "2026-10-30"
+ },
+ "tls_data": {
+  "doi": "10.5281/zenodo.14620362",
+  "source": "datacite",
+  "title": "10x Visium Spatial Transcriptomics Dataset: Kidney (3) and Lung (5) Cancer with Tertiary Lymphoid Structures",
+  "authors": [
+   {
+    "family": "Dawo",
+    "given": "Sebastian"
+   },
+   {
+    "family": "Nonchev",
+    "given": "Kalin"
+   },
+   {
+    "family": "Silina",
+    "given": "Karina"
+   }
+  ],
+  "journal": "Zenodo",
+  "journal_short": "",
+  "year": 2025,
+  "volume": "",
+  "issue": "",
+  "pages": "",
+  "type": "data",
+  "pmid": "",
+  "short_authors": "Dawo S, Nonchev K, Silina K",
+  "checked": "2026-10-30"
+ },
+ "janesick": {
+  "doi": "10.1038/s41467-023-43458-x",
+  "source": "crossref",
+  "title": "High resolution mapping of the tumor microenvironment using integrated single-cell, spatial and in situ analysis",
+  "authors": [
+   {
+    "family": "Janesick",
+    "given": "Amanda"
+   },
+   {
+    "family": "Shelansky",
+    "given": "Robert"
+   },
+   {
+    "family": "Gottscho",
+    "given": "Andrew D."
+   },
+   {
+    "family": "Wagner",
+    "given": "Florian"
+   },
+   {
+    "family": "Williams",
+    "given": "Stephen R."
+   },
+   {
+    "family": "Rouault",
+    "given": "Morgane"
+   },
+   {
+    "family": "Beliakoff",
+    "given": "Ghezal"
+   },
+   {
+    "family": "Morrison",
+    "given": "Carolyn A."
+   },
+   {
+    "family": "Oliveira",
+    "given": "Michelli F."
+   },
+   {
+    "family": "Sicherman",
+    "given": "Jordan T."
+   },
+   {
+    "family": "Kohlway",
+    "given": "Andrew"
+   },
+   {
+    "family": "Abousoud",
+    "given": "Jawad"
+   },
+   {
+    "family": "Drennon",
+    "given": "Tingsheng Yu"
+   },
+   {
+    "family": "Mohabbat",
+    "given": "Seayar H."
+   },
+   {
+    "name": "10x Development Teams"
+   },
+   {
+    "family": "Taylor",
+    "given": "Sarah E. B."
+   }
+  ],
+  "journal": "Nature Communications",
+  "journal_short": "Nat Commun",
+  "year": 2023,
+  "volume": "14",
+  "issue": "1",
+  "pages": "8353",
+  "type": "article",
+  "pmid": "38114474",
+  "short_authors": "Janesick A, Shelansky R, Gottscho AD, et al.",
+  "checked": "2026-10-30"
+ },
+ "tabula_sapiens": {
+  "doi": "10.1126/science.abl4896",
+  "source": "crossref",
+  "title": "The Tabula Sapiens: A multiple-organ, single-cell transcriptomic atlas of humans",
+  "authors": [
+   {
+    "family": "The Tabula Sapiens Consortium",
+    "given": ""
+   },
+   {
+    "family": "Jones",
+    "given": "Robert C."
+   },
+   {
+    "family": "Karkanias",
+    "given": "Jim"
+   },
+   {
+    "family": "Krasnow",
+    "given": "Mark A."
+   },
+   {
+    "family": "Pisco",
+    "given": "Angela Oliveira"
+   },
+   {
+    "family": "Quake",
+    "given": "Stephen R."
+   },
+   {
+    "family": "Salzman",
+    "given": "Julia"
+   },
+   {
+    "family": "Yosef",
+    "given": "Nir"
+   },
+   {
+    "family": "Bulthaup",
+    "given": "Bryan"
+   },
+   {
+    "family": "Brown",
+    "given": "Phillip"
+   },
+   {
+    "family": "Harper",
+    "given": "William"
+   },
+   {
+    "family": "Hemenez",
+    "given": "Marisa"
+   },
+   {
+    "family": "Ponnusamy",
+    "given": "Ravikumar"
+   },
+   {
+    "family": "Salehi",
+    "given": "Ahmad"
+   },
+   {
+    "family": "Sanagavarapu",
+    "given": "Bhavani A."
+   },
+   {
+    "family": "Spallino",
+    "given": "Eileen"
+   },
+   {
+    "family": "Aaron",
+    "given": "Ksenia A."
+   },
+   {
+    "family": "Concepcion",
+    "given": "Waldo"
+   },
+   {
+    "family": "Gardner",
+    "given": "James M."
+   },
+   {
+    "family": "Kelly",
+    "given": "Burnett"
+   },
+   {
+    "family": "Neidlinger",
+    "given": "Nikole"
+   },
+   {
+    "family": "Wang",
+    "given": "Zifa"
+   },
+   {
+    "family": "Crasta",
+    "given": "Sheela"
+   },
+   {
+    "family": "Kolluru",
+    "given": "Saroja"
+   },
+   {
+    "family": "Morri",
+    "given": "Maurizio"
+   },
+   {
+    "family": "Tan",
+    "given": "Serena Y."
+   },
+   {
+    "family": "Travaglini",
+    "given": "Kyle J."
+   },
+   {
+    "family": "Xu",
+    "given": "Chenling"
+   },
+   {
+    "family": "Alcántara-Hernández",
+    "given": "Marcela"
+   },
+   {
+    "family": "Almanzar",
+    "given": "Nicole"
+   },
+   {
+    "family": "Antony",
+    "given": "Jane"
+   },
+   {
+    "family": "Beyersdorf",
+    "given": "Benjamin"
+   },
+   {
+    "family": "Burhan",
+    "given": "Deviana"
+   },
+   {
+    "family": "Calcuttawala",
+    "given": "Kruti"
+   },
+   {
+    "family": "Carter",
+    "given": "Matthew M."
+   },
+   {
+    "family": "Chan",
+    "given": "Charles K. F."
+   },
+   {
+    "family": "Chang",
+    "given": "Charles A."
+   },
+   {
+    "family": "Chang",
+    "given": "Stephen"
+   },
+   {
+    "family": "Colville",
+    "given": "Alex"
+   },
+   {
+    "family": "Culver",
+    "given": "Rebecca N."
+   },
+   {
+    "family": "Cvijović",
+    "given": "Ivana"
+   },
+   {
+    "family": "D’Amato",
+    "given": "Gaetano"
+   },
+   {
+    "family": "Ezran",
+    "given": "Camille"
+   },
+   {
+    "family": "Galdos",
+    "given": "Francisco X."
+   },
+   {
+    "family": "Gillich",
+    "given": "Astrid"
+   },
+   {
+    "family": "Goodyer",
+    "given": "William R."
+   },
+   {
+    "family": "Hang",
+    "given": "Yan"
+   },
+   {
+    "family": "Hayashi",
+    "given": "Alyssa"
+   },
+   {
+    "family": "Houshdaran",
+    "given": "Sahar"
+   },
+   {
+    "family": "Huang",
+    "given": "Xianxi"
+   },
+   {
+    "family": "Irwin",
+    "given": "Juan C."
+   },
+   {
+    "family": "Jang",
+    "given": "SoRi"
+   },
+   {
+    "family": "Juanico",
+    "given": "Julia Vallve"
+   },
+   {
+    "family": "Kershner",
+    "given": "Aaron M."
+   },
+   {
+    "family": "Kim",
+    "given": "Soochi"
+   },
+   {
+    "family": "Kiss",
+    "given": "Bernhard"
+   },
+   {
+    "family": "Kong",
+    "given": "William"
+   },
+   {
+    "family": "Kumar",
+    "given": "Maya E."
+   },
+   {
+    "family": "Kuo",
+    "given": "Angera H."
+   },
+   {
+    "family": "Leylek",
+    "given": "Rebecca"
+   },
+   {
+    "family": "Li",
+    "given": "Baoxiang"
+   },
+   {
+    "family": "Loeb",
+    "given": "Gabriel B."
+   },
+   {
+    "family": "Lu",
+    "given": "Wan-Jin"
+   },
+   {
+    "family": "Mantri",
+    "given": "Sruthi"
+   },
+   {
+    "family": "Markovic",
+    "given": "Maxim"
+   },
+   {
+    "family": "McAlpine",
+    "given": "Patrick L."
+   },
+   {
+    "family": "de Morree",
+    "given": "Antoine"
+   },
+   {
+    "family": "Mrouj",
+    "given": "Karim"
+   },
+   {
+    "family": "Mukherjee",
+    "given": "Shravani"
+   },
+   {
+    "family": "Muser",
+    "given": "Tyler"
+   },
+   {
+    "family": "Neuhöfer",
+    "given": "Patrick"
+   },
+   {
+    "family": "Nguyen",
+    "given": "Thi D."
+   },
+   {
+    "family": "Perez",
+    "given": "Kimberly"
+   },
+   {
+    "family": "Phansalkar",
+    "given": "Ragini"
+   },
+   {
+    "family": "Puluca",
+    "given": "Nazan"
+   },
+   {
+    "family": "Qi",
+    "given": "Zhen"
+   },
+   {
+    "family": "Rao",
+    "given": "Poorvi"
+   },
+   {
+    "family": "Raquer-McKay",
+    "given": "Hayley"
+   },
+   {
+    "family": "Schaum",
+    "given": "Nicholas"
+   },
+   {
+    "family": "Scott",
+    "given": "Bronwyn"
+   },
+   {
+    "family": "Seddighzadeh",
+    "given": "Bobak"
+   },
+   {
+    "family": "Segal",
+    "given": "Joe"
+   },
+   {
+    "family": "Sen",
+    "given": "Sushmita"
+   },
+   {
+    "family": "Sikandar",
+    "given": "Shaheen"
+   },
+   {
+    "family": "Spencer",
+    "given": "Sean P."
+   },
+   {
+    "family": "Steffes",
+    "given": "Lea C."
+   },
+   {
+    "family": "Subramaniam",
+    "given": "Varun R."
+   },
+   {
+    "family": "Swarup",
+    "given": "Aditi"
+   },
+   {
+    "family": "Swift",
+    "given": "Michael"
+   },
+   {
+    "family": "Van Treuren",
+    "given": "Will"
+   },
+   {
+    "family": "Trimm",
+    "given": "Emily"
+   },
+   {
+    "family": "Veizades",
+    "given": "Stefan"
+   },
+   {
+    "family": "Vijayakumar",
+    "given": "Sivakamasundari"
+   },
+   {
+    "family": "Vo",
+    "given": "Kim Chi"
+   },
+   {
+    "family": "Vorperian",
+    "given": "Sevahn K."
+   },
+   {
+    "family": "Wang",
+    "given": "Wanxin"
+   },
+   {
+    "family": "Weinstein",
+    "given": "Hannah N. W."
+   },
+   {
+    "family": "Winkler",
+    "given": "Juliane"
+   },
+   {
+    "family": "Wu",
+    "given": "Timothy T. H."
+   },
+   {
+    "family": "Xie",
+    "given": "Jamie"
+   },
+   {
+    "family": "Yung",
+    "given": "Andrea R."
+   },
+   {
+    "family": "Zhang",
+    "given": "Yue"
+   },
+   {
+    "family": "Detweiler",
+    "given": "Angela M."
+   },
+   {
+    "family": "Mekonen",
+    "given": "Honey"
+   },
+   {
+    "family": "Neff",
+    "given": "Norma F."
+   },
+   {
+    "family": "Sit",
+    "given": "Rene V."
+   },
+   {
+    "family": "Tan",
+    "given": "Michelle"
+   },
+   {
+    "family": "Yan",
+    "given": "Jia"
+   },
+   {
+    "family": "Bean",
+    "given": "Gregory R."
+   },
+   {
+    "family": "Charu",
+    "given": "Vivek"
+   },
+   {
+    "family": "Forgó",
+    "given": "Erna"
+   },
+   {
+    "family": "Martin",
+    "given": "Brock A."
+   },
+   {
+    "family": "Ozawa",
+    "given": "Michael G."
+   },
+   {
+    "family": "Silva",
+    "given": "Oscar"
+   },
+   {
+    "family": "Toland",
+    "given": "Angus"
+   },
+   {
+    "family": "Vemuri",
+    "given": "Venkata N. P."
+   },
+   {
+    "family": "Afik",
+    "given": "Shaked"
+   },
+   {
+    "family": "Awayan",
+    "given": "Kyle"
+   },
+   {
+    "family": "Botvinnik",
+    "given": "Olga Borisovna"
+   },
+   {
+    "family": "Byrne",
+    "given": "Ashley"
+   },
+   {
+    "family": "Chen",
+    "given": "Michelle"
+   },
+   {
+    "family": "Dehghannasiri",
+    "given": "Roozbeh"
+   },
+   {
+    "family": "Gayoso",
+    "given": "Adam"
+   },
+   {
+    "family": "Granados",
+    "given": "Alejandro A."
+   },
+   {
+    "family": "Li",
+    "given": "Qiqing"
+   },
+   {
+    "family": "Mahmoudabadi",
+    "given": "Gita"
+   },
+   {
+    "family": "McGeever",
+    "given": "Aaron"
+   },
+   {
+    "family": "Olivieri",
+    "given": "Julia Eve"
+   },
+   {
+    "family": "Park",
+    "given": "Madeline"
+   },
+   {
+    "family": "Ravikumar",
+    "given": "Neha"
+   },
+   {
+    "family": "Stanley",
+    "given": "Geoff"
+   },
+   {
+    "family": "Tan",
+    "given": "Weilun"
+   },
+   {
+    "family": "Tarashansky",
+    "given": "Alexander J."
+   },
+   {
+    "family": "Vanheusden",
+    "given": "Rohan"
+   },
+   {
+    "family": "Wang",
+    "given": "Peter"
+   },
+   {
+    "family": "Wang",
+    "given": "Sheng"
+   },
+   {
+    "family": "Xing",
+    "given": "Galen"
+   },
+   {
+    "family": "Dethlefsen",
+    "given": "Les"
+   },
+   {
+    "family": "Ho",
+    "given": "Po-Yi"
+   },
+   {
+    "family": "Liu",
+    "given": "Shixuan"
+   },
+   {
+    "family": "Maltzman",
+    "given": "Jonathan S."
+   },
+   {
+    "family": "Metzger",
+    "given": "Ross J."
+   },
+   {
+    "family": "Sasagawa",
+    "given": "Koki"
+   },
+   {
+    "family": "Sinha",
+    "given": "Rahul"
+   },
+   {
+    "family": "Song",
+    "given": "Hanbing"
+   },
+   {
+    "family": "Wang",
+    "given": "Bruce"
+   },
+   {
+    "family": "Artandi",
+    "given": "Steven E."
+   },
+   {
+    "family": "Beachy",
+    "given": "Philip A."
+   },
+   {
+    "family": "Clarke",
+    "given": "Michael F."
+   },
+   {
+    "family": "Giudice",
+    "given": "Linda C."
+   },
+   {
+    "family": "Huang",
+    "given": "Franklin W."
+   },
+   {
+    "family": "Huang",
+    "given": "Kerwyn Casey"
+   },
+   {
+    "family": "Idoyaga",
+    "given": "Juliana"
+   },
+   {
+    "family": "Kim",
+    "given": "Seung K."
+   },
+   {
+    "family": "Kuo",
+    "given": "Christin S."
+   },
+   {
+    "family": "Nguyen",
+    "given": "Patricia"
+   },
+   {
+    "family": "Rando",
+    "given": "Thomas A."
+   },
+   {
+    "family": "Red-Horse",
+    "given": "Kristy"
+   },
+   {
+    "family": "Reiter",
+    "given": "Jeremy"
+   },
+   {
+    "family": "Relman",
+    "given": "David A."
+   },
+   {
+    "family": "Sonnenburg",
+    "given": "Justin L."
+   },
+   {
+    "family": "Wu",
+    "given": "Albert"
+   },
+   {
+    "family": "Wu",
+    "given": "Sean M."
+   },
+   {
+    "family": "Wyss-Coray",
+    "given": "Tony"
+   }
+  ],
+  "journal": "Science",
+  "journal_short": "Science",
+  "year": 2022,
+  "volume": "376",
+  "issue": "6594",
+  "pages": "eabl4896",
+  "type": "article",
+  "pmid": "35549404",
+  "short_authors": "The Tabula Sapiens Consortium, Jones RC, Karkanias J, et al.",
+  "checked": "2026-10-30"
+ }
+}
