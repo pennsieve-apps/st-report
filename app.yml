@@ -106,7 +106,7 @@ inputs:
     required: false
   - name: deconvolution
     description: >-
-      cell2location's labels output (type_summary.csv, colocation.csv, summary.json, figures/*.png,
+      cell2location's labels output (type_summary.csv, colocation.csv, colocation_by_obs.csv, summary.json, figures/*.png,
       provenance.json; abundance.csv and labels.csv are not read).
     mediaTypes: [text/csv, image/png, application/json]
     placement: subfolder

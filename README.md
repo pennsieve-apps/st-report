@@ -45,8 +45,8 @@ the deduplicated, verified papers of every step present.
 | Spatial domains | `domains` | domains with size, sample coverage (≥ 20 observations), conditions and top markers; a domains × samples heat map; domains confined to one sample or one condition; agreement with the annotation (ARI/NMI per sample and pooled, best-matching domain per class); st-domains' maps, UMAP, dot plot, confusion |
 | Spatially variable genes | `svg` | per sample genes tested and significant, median Moran's I; consensus genes with the domains/clusters they mark; share of significant results with I < 0.05; st-svg's figures |
 | Condition comparison | `compare` (one block per `<LABEL>/`) | composition tests (mean share per level, CLR difference, adjusted p) and, when nothing is significant, why (samples per group, the smallest p the rank test can reach); pseudobulk DE per label (tested/skipped with reasons, counts up/down, top genes), genes shared by most labels; a DE-count figure, st-compare's composition plot, heat map and volcanoes |
-| Cell types | `deconvolution` and/or `celltype` (+ `celltype-figures`) | cell2location: estimated shares, dominant types and Mixed spots, types hidden by `dominant_type`, co-location groups, reference and reconstruction check; st-celltype: clusters with call, score, runner-up and margin (close calls flagged), clusters sharing a call, composition per sample, marker sets not scorable on the panel |
-| Spatial organisation | `niches` (one block per `<LABEL>/`) | homotypic and mixed neighbourhood enrichment, segregated pairs, niches and their composition, niche shares per sample, sparse-graph warning; st-niches' heat maps, niche maps, co-occurrence curves |
+| Cell types | `deconvolution` and/or `celltype` (+ `celltype-figures`) | cell2location: estimated shares, co-location groups (main cell types, share of spots where each is strongest, from `colocation.csv` and `colocation_by_obs.csv`), reference and reconstruction check, the dominant type (a caveat when most spots are `Mixed`) and types hidden by it; st-celltype: clusters with call, score, runner-up and margin (close calls flagged), clusters sharing a call, composition per sample, marker sets not scorable on the panel |
+| Spatial organisation | `niches` (one block per `<LABEL>/`) | homotypic and mixed neighbourhood enrichment (cell2location co-location groups named by their two main cell types, "G01 (B cell / myeloid dendritic cell)"), segregated pairs, niches and their composition, niche shares per sample, sparse-graph warning; st-niches' heat maps, niche maps, co-occurrence curves |
 | Cell–cell communication | `ccc` (one block per `<LABEL>/`) | consensus top interactions with their spatial R, spatially supported pairs, anti-correlated top pairs, panel coverage of the resource; a spatial-R figure and st-ccc's dot plots, source–target heat maps and local maps |
 | Methods | any `provenance.json` | per app: version, tools, parameters, method as run, citations |
 | Citations | always | deduplicated over the apps present plus the report's own; DOI and PMID |
@@ -69,7 +69,7 @@ its app writes.
 | `domains` | `domain_summary.csv`, `domain_markers.csv`, `agreement.csv`, `annotation_match.csv`, `summary.json`, `figures/*.png`, `provenance.json` | st-domains `labels` | `domain_summary.csv`, `domain_markers.csv` |
 | `svg` | `svg.csv`, `svg_consensus.csv`, `summary.json`, `*.png`, `provenance.json` | st-svg | `svg_consensus.csv`, `svg.csv` |
 | `compare` | per `<LABEL>/`: `composition_tests.csv`, `de_summary.csv`, `de.csv`, `summary.json`, `composition.png`, `de_heatmap.png`, `volcano_*.png`, `provenance.json` | st-compare (several links side by side) | `composition_tests.csv`, `de_summary.csv` |
-| `deconvolution` | `type_summary.csv`, `colocation.csv`, `summary.json`, `figures/*.png`, `provenance.json` | cell2location `labels` | `type_summary.csv`, `colocation.csv`, `abundance.csv` |
+| `deconvolution` | `type_summary.csv`, `colocation.csv`, `colocation_by_obs.csv` (read in chunks), `summary.json`, `figures/*.png`, `provenance.json` | cell2location `labels` | `type_summary.csv`, `colocation.csv`, `abundance.csv` |
 | `celltype` | `cluster_annotation.csv`, `cell_type_summary.csv`, `cluster_markers.csv`, `summary.json`, `provenance.json` | st-celltype `labels` | `cell_type_summary.csv`, `cluster_annotation.csv` |
 | `celltype-figures` | `umap_cell_type.png`, `umap_cluster.png`, `cell_type_by_sample.png`, `dotplot_marker_sets.png`, `<sample_id>_cell_type.png` | st-celltype `figures` | those PNGs |
 | `niches` | per `<LABEL>/`: `nhood_enrichment.csv`, `niche_composition.csv`, `niche_summary.csv`, `summary.json`, `*.png`, `provenance.json` | st-niches (several links side by side) | `niche_composition.csv`, `nhood_enrichment.csv` |
@@ -150,8 +150,18 @@ Fibroblast → B/T cell CXCL12 → CXCR4 (spatial R 0.22 in both replicates); S1
 third by expression but is spatially anti-correlated (R −0.32); only 23 ligand–receptor pairs of
 the resource have all their genes on the panel.
 
-**Lymph node, workflow B**: the cell2location and st-niches outputs of the lymph-node demo were not
-yet available; workflow B is covered by the synthetic fixture.
+**Lymph node, workflow B** (10x Human Lymph Node Visium, 3,928 spots after QC; cell2location with
+the Tabula Sapiens lymph-node reference, 20 cell types, 2,000 spatial epochs; st-niches on
+`colocation_group`): QC removed 107 of 4,035 spots (2.7%). cell2location: on average 6.9 cells per
+spot, largest estimated shares B cell 16%, regulatory T cell 9.2%, plasma cell 8.6%;
+reconstruction r = 0.82. Eight co-location groups lead the section, e.g. G01 B cell (strongest
+in 36% of spots), G02 naive / CD4 T cells (16%), G03 T + NK cells (15%), G07 endothelial +
+stromal + macrophage (6.7%). The dominant type is a caveat: 3,875 of 3,928 spots (99%) are
+`Mixed` with this fine-grained reference. Niches, with groups named by their main cell types:
+B-cell (G01) and T-cell (G02, G03) programmes segregate (z −40 and −25), G03 (T / NK) sits next
+to G06 (plasma / stromal) (z 11); three niches (silhouette 0.35, k = 5 0.34): a mixed
+T/NK–plasma niche (42% of spots), a B-cell niche (41%, 74% G01) and a naive-T-cell niche (18%,
+74% G02). The page notes the quick training (2,000 of the recommended ~30,000 epochs).
 
 ## Runtime
 
@@ -162,8 +172,9 @@ peak from the container cgroup's `memory.peak`:
 
 | Inputs | Sections | Peak memory | Wall time (incl. container start) |
 |---|---|---|---|
-| TLS Visium, workflow A (8 samples, 2 comparisons, 53 figures) | 5 | 198 MB | 8.5 s |
-| Xenium breast, workflow C + st-svg (2 full slides, 277 k cells) | 6 | 152 MB | 4.2 s |
+| TLS Visium, workflow A (8 samples, 2 comparisons, 53 figures) | 5 | 197 MB | 3.1–8.5 s |
+| Lymph node, workflow B (1 sample, 20 cell types, 8 co-location groups) | 4 | 240 MB | 3.0 s |
+| Xenium breast, workflow C + st-svg (2 full slides, 277 k cells) | 6 | 152 MB | 2.6–4.2 s |
 
 The report reads summary tables only, so memory does not grow with the number of spots or cells
 (the largest files it reads are st-compare's `de.csv` and st-svg's `svg.csv`, genes × labels or

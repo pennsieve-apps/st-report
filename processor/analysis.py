@@ -270,8 +270,9 @@ def study(inp: Inputs) -> dict[str, Any] | None:
                 out["caveats"].append(f"Every '{c}' value occurs in one {cond} level only, so {cond} and {c} are "
                                       f"confounded: a difference between conditions can be a difference between {c}s.")
     if kind == "spot":
-        out["caveats"].append("Visium spots (55 µm) each hold several cells (typically 1–10): expression, domains "
-                              "and spatially variable genes describe spot mixtures, not single cells.")
+        size = "Visium spots (55 µm)" if set(platforms) == {"Visium"} else "Spots"
+        out["caveats"].append(f"{size} each hold several cells: expression, domains and spatially variable genes "
+                              "describe mixtures of cells, not single cells.")
     # prep.json details
     samples_prep = {k: v for k, v in (prep.get("samples") or {}).items() if isinstance(v, dict)}
     if samples_prep:
@@ -374,10 +375,12 @@ def qc(inp: Inputs) -> dict[str, Any] | None:
                                        "could act.")
     if "n_genes_before" in ok and "n_genes_after" in ok:
         gd = pd.to_numeric(ok["n_genes_before"]) - pd.to_numeric(ok["n_genes_after"])
-        if gd.max() > 0:
+        if gd.max() > 0 and len(ok) > 1:
             out["observations"].append(f"Genes detected in too few observations were dropped per sample "
                                        f"({count(gd.min())}–{count(gd.max())}), so samples keep different gene sets; "
                                        "steps that combine samples use the genes shared by all.")
+        elif gd.max() > 0:
+            out["observations"].append(f"{count(gd.max())} genes detected in too few observations were dropped.")
     for _, r in failed.iterrows():
         out["observations"].append(f"{r['sample_id']} failed QC and was skipped: {r['status']}.")
     if out["filter_mode"] == "mad":
@@ -951,6 +954,47 @@ def celltypes(inp: Inputs, max_items: int) -> dict[str, Any] | None:
 # ---------------------------------------------------------------- deconvolution (cell2location)
 
 
+def colocation_groups(run: Run | None, min_weight: float = 0.2) -> list[dict[str, Any]]:
+    """cell2location's co-location groups with their main cell types (weight >= min_weight, at least one)."""
+    if run is None:
+        return []
+    cl = run.csv("colocation.csv", "group", "cell_type", "weight")
+    if cl is not None:
+        out = []
+        for g, d in cl.groupby("group"):
+            d = d.sort_values("weight", ascending=False)
+            top = [(str(r.cell_type), float(r.weight)) for r in d.head(4).itertuples() if r.weight >= min_weight]
+            out.append({"group": str(g), "top": top or [(str(d.iloc[0]["cell_type"]), float(d.iloc[0]["weight"]))]})
+        return out
+    groups = ((run.summary or {}).get("colocation") or {}).get("groups") or []
+    return [{"group": g["group"], "top": [(t.rsplit(" (", 1)[0], None) for t in g.get("top_types", [])[:3]]}
+            for g in groups]
+
+
+def group_shares(run: Run) -> dict[str, float]:
+    """Share of spots in which each co-location group has the largest loading (colocation_by_obs.csv)."""
+    path = run.file("colocation_by_obs.csv")
+    if path is None:
+        return {}
+    try:
+        counts: pd.Series | None = None
+        for chunk in pd.read_csv(path, chunksize=100_000):
+            cols = [c for c in chunk.columns if c not in ("sample_id", "obs_id")]
+            c = chunk[cols].idxmax(axis=1).value_counts()
+            counts = c if counts is None else counts.add(c, fill_value=0)
+    except (OSError, ValueError, pd.errors.ParserError) as exc:  # noqa: F841
+        return {}
+    if counts is None or counts.sum() == 0:
+        return {}
+    return {str(k): float(v / counts.sum()) for k, v in counts.items()}
+
+
+def group_names(inp: Inputs) -> dict[str, str]:
+    """'G01' -> 'G01 (B cell, myeloid dendritic cell)', from cell2location's co-location weights."""
+    return {g["group"]: f"{g['group']} ({' / '.join(t for t, _ in g['top'][:2])})"
+            for g in colocation_groups(inp.one("deconvolution"))}
+
+
 def deconvolution(inp: Inputs, max_items: int) -> dict[str, Any] | None:
     run = inp.one("deconvolution")
     if run is None:
@@ -999,33 +1043,39 @@ def deconvolution(inp: Inputs, max_items: int) -> dict[str, Any] | None:
         t = out["types"]
         out["observations"].append("Largest estimated shares of cells: " + joined(
             [f"{x['cell_type']} {pct(x['fraction'])}" for x in t[:5]]) + ".")
+    # co-location groups first: they describe every spot, where the dominant type may describe few
+    groups = colocation_groups(run)
+    out["colocation"] = groups
+    share = group_shares(run)
+    for g in groups:
+        g["fraction_strongest"] = share.get(g["group"])
+    if groups:
+        out["observations"].append(f"{plural(len(groups), 'co-location group')} (cell types that occur together, "
+                                   f"from cell2location's NMF): " + "; ".join(
+            f"{g['group']} {' + '.join(t for t, _ in g['top'][:3])}" +
+            (f" (strongest in {pct(g['fraction_strongest'])} of {word})" if g.get("fraction_strongest") is not None else "")
+            for g in groups) + ".")
     dc = out["dominant_counts"]
     if dc:
         n = sum(dc.values())
+        mixed = dc.get("Mixed", 0)
         top = sorted(((k, v) for k, v in dc.items() if k != "Mixed"), key=lambda kv: -kv[1])
-        out["observations"].append(
-            "Dominant type per spot: " + joined([f"{k} {count(v)} ({pct(v / n)})" for k, v in top[:4]]) +
-            (f"; {count(dc.get('Mixed', 0))} {word} ({pct(dc.get('Mixed', 0) / n)}) are Mixed (top type below "
-             f"{pct(out['min_dominant_fraction'])} of the spot)" if dc.get("Mixed") else "") + ".")
-        if out.get("types"):
-            hidden = [x["cell_type"] for x in out["types"] if x["fraction"] >= 0.05 and not dc.get(x["cell_type"])]
-            if hidden:
-                out["observations"].append(f"{joined(hidden)} make up a sizeable share of cells but dominate no "
-                                           f"{unit_of(kind_of(inp), 1)}: they are invisible to anything built on "
-                                           "dominant_type (st-niches, st-compare).")
-    coloc = (sm.get("colocation") or {}).get("groups") or []
-    cl = run.csv("colocation.csv", "group", "cell_type", "weight")
-    groups = []
-    if cl is not None:
-        for g, d in cl.groupby("group"):
-            d = d.sort_values("weight", ascending=False)
-            groups.append({"group": g, "top": [(r.cell_type, float(r.weight)) for r in d.head(4).itertuples() if r.weight >= 0.2]})
-    elif coloc:
-        groups = [{"group": g["group"], "top": [(t.split(" (")[0], None) for t in g.get("top_types", [])[:3]]} for g in coloc]
-    out["colocation"] = groups
-    if groups:
-        out["observations"].append(f"{plural(len(groups), 'co-location group')}: " + joined(
-            [f"{g['group']} " + " + ".join(t for t, _ in g["top"][:3]) for g in groups]) + ".")
+        text = ("Dominant type per spot: " + (joined([f"{k} {count(v)} ({pct(v / n)})" for k, v in top[:4]]) or "none") +
+                (f"; {count(mixed)} {word} ({pct(mixed / n)}) are Mixed (no type holds "
+                 f"{pct(out['min_dominant_fraction'])} of the spot)" if mixed else "") + ".")
+        out["mixed_fraction"] = mixed / n if n else None
+        if n and mixed / n >= 0.5:
+            out["caveats"].insert(0, text + " With a fine-grained reference most spots hold no majority type, so "
+                                  "dominant_type says little here; the abundances and co-location groups describe "
+                                  "every spot.")
+        else:
+            out["observations"].append(text)
+            if out.get("types"):
+                hidden = [x["cell_type"] for x in out["types"] if x["fraction"] >= 0.05 and not dc.get(x["cell_type"])]
+                if hidden:
+                    out["observations"].append(f"{joined(hidden)} make up a sizeable share of cells but dominate no "
+                                               f"{unit_of(kind_of(inp), 1)}: they are invisible to anything built on "
+                                               "dominant_type.")
     if mapping.get("log1p_correlation") is not None:
         out["observations"].append(f"Reconstruction check: the model's expected counts correlate with the observed "
                                    f"ones at r = {num(mapping['log1p_correlation'])} (log1p scale).")
@@ -1037,8 +1087,9 @@ def deconvolution(inp: Inputs, max_items: int) -> dict[str, Any] | None:
                           "similar types (subsets of T cells) trade abundance between them. Benchmarks (Spotless, "
                           "Sang-aram et al. 2024) find it among the most accurate methods, with accuracy falling "
                           "for rare and transcriptionally similar types.")
-    out["caveats"].append("The dominant type keeps only the most abundant type of each spot; minority types and mixed "
-                          "spots are lost to steps that use it.")
+    if (out.get("mixed_fraction") or 0) < 0.5:
+        out["caveats"].append("The dominant type keeps only the most abundant type of each spot; minority types and "
+                              "mixed spots are lost to steps that use it.")
     if mapping.get("epochs") and int(mapping["epochs"]) < 10000:
         out["caveats"].append(f"The spatial model was trained for {count(mapping['epochs'])} epochs (cell2location "
                               "recommends ~30,000): a quick run; abundances may not have converged.")
@@ -1067,9 +1118,17 @@ def niches_one(run: Run, inp: Inputs, max_items: int) -> dict[str, Any] | None:
     label_col = sm.get("label_column") or (run.provenance or {}).get("parameters", {}).get("LABEL_COLUMN") or run.label
     out.update(label=run.label, label_column=label_col, n_obs=sm.get("n_obs"), n_samples=sm.get("n_samples"))
     word = unit_of(kind_of(inp))
-    het = sm.get("strongest_enriched_heterotypic") or []
-    dep = sm.get("strongest_depleted") or []
-    homo = [p for p in (sm.get("strongest_enriched") or []) if p.get("homotypic")]
+    # co-location groups named by their main cell types: 'G01 (B cell, myeloid dendritic cell)'
+    names = group_names(inp) if str(label_col) == "colocation_group" else {}
+    out["label_names"] = names
+
+    def named(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        return [{**r, "label_a": names.get(str(r["label_a"]), r["label_a"]),
+                 "label_b": names.get(str(r["label_b"]), r["label_b"])} for r in rows]
+
+    het = named(sm.get("strongest_enriched_heterotypic") or [])
+    dep = named(sm.get("strongest_depleted") or [])
+    homo = [p for p in named(sm.get("strongest_enriched") or []) if p.get("homotypic")]
     if ne is not None and not het:
         pooled = ne[ne["sample_id"].astype(str) == "pooled"]
         pooled = pooled[pooled["label_a"] < pooled["label_b"]]
@@ -1078,8 +1137,13 @@ def niches_one(run: Run, inp: Inputs, max_items: int) -> dict[str, Any] | None:
     out["enriched"], out["depleted"], out["homotypic"] = het[:max_items], dep[:max_items], homo[:max_items]
     if ne is not None:
         pooled = ne[ne["sample_id"].astype(str) == "pooled"].copy()
+        if not len(pooled) and ne["sample_id"].nunique() == 1:
+            pooled = ne.copy()
         if len(pooled):
             pooled = pooled[pooled["label_a"].astype(str) <= pooled["label_b"].astype(str)]
+            if names:
+                for c in ("label_a", "label_b"):
+                    pooled[c] = pooled[c].astype(str).map(lambda x: names.get(x, x))
             out["pairs"] = pooled.sort_values("zscore", ascending=False)
     if homo:
         strongest = (sm.get("strongest_enriched") or [{}])[0]
@@ -1099,6 +1163,8 @@ def niches_one(run: Run, inp: Inputs, max_items: int) -> dict[str, Any] | None:
         out["n_pairs_enriched"], out["n_pairs_depleted"] = sm.get("n_pairs_enriched"), sm.get("n_pairs_depleted")
     niches = []
     if nc is not None:
+        if names:
+            nc = nc.assign(label=nc["label"].astype(str).map(lambda x: names.get(x, x)))
         for n, g in nc.groupby("niche"):
             g = g.sort_values("fraction", ascending=False)
             niches.append({"niche": n, "n_obs": int(g["n_obs"].iloc[0]) if "n_obs" in g else None,
@@ -1148,10 +1214,15 @@ def niches_one(run: Run, inp: Inputs, max_items: int) -> dict[str, Any] | None:
         out["caveats"].append(f"Enrichment z-scores grow with the number of {word}: with {count(sm['n_obs'])} almost "
                               "every pair is 'significant'. Compare z-scores between pairs, and read the interaction "
                               "fractions for effect size; they are not corrected for multiple tests.")
-    out["caveats"].append("The pooled z-score treats the samples as one tissue (labels shuffled within each sample); "
-                          "it is not a test across replicates or conditions.")
+    if (sm.get("n_samples") or 0) > 1:
+        out["caveats"].append("The pooled z-score treats the samples as one tissue (labels shuffled within each sample); "
+                              "it is not a test across replicates or conditions.")
     out["caveats"].append(f"Everything here is about the {label_col} labels, not expression: it is only as good as the "
                           "labelling upstream; mislabelling at boundaries shows up as enrichment between neighbouring labels.")
+    if str(label_col) == "colocation_group":
+        out["caveats"].append("The labels are cell2location co-location groups (each spot's group with the largest "
+                              "loading), named here by their two main cell types: neighbourhoods and niches of tissue "
+                              "programmes, not of individual cell types; a spot also carries the other groups.")
     if str(label_col) == "dominant_type":
         out["caveats"].append("dominant_type keeps only the most abundant cell type per spot: these niches are "
                               "neighbourhoods of spot types, and minority types are invisible.")

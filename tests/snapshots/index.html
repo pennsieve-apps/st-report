@@ -62,7 +62,7 @@ Spatial Domain Mapping &amp; Condition Comparison. 4 samples (Visium), condition
 
 <h2 id="design">Study design</h2>
 <ul class="obs"><li>4 samples, Visium: 2,300 spots in all (500–650 per sample), 2,000 genes.</li><li>Conditions (column &#39;condition&#39;): ctrl (2 samples) and treat (2 samples).</li><li>A user annotation (annotations.csv) labels 1,200 spots in 4 samples.</li></ul>
-<div class="caveats"><strong>Keep in mind</strong><ul><li>ctrl has only 2 sample(s). Tests between conditions use the sample as the replicate, so with this few sections only large, consistent differences can be detected.</li><li>Every &#39;donor&#39; value occurs in one condition level only, so condition and donor are confounded: a difference between conditions can be a difference between donors.</li><li>Visium spots (55 µm) each hold several cells (typically 1–10): expression, domains and spatially variable genes describe spot mixtures, not single cells.</li></ul></div>
+<div class="caveats"><strong>Keep in mind</strong><ul><li>ctrl has only 2 sample(s). Tests between conditions use the sample as the replicate, so with this few sections only large, consistent differences can be detected.</li><li>Every &#39;donor&#39; value occurs in one condition level only, so condition and donor are confounded: a difference between conditions can be a difference between donors.</li><li>Visium spots (55 µm) each hold several cells: expression, domains and spatially variable genes describe mixtures of cells, not single cells.</li></ul></div>
 <table style="width:auto"><tr><th>condition</th><th class="num">samples</th></tr>
 <tr><td>ctrl</td><td class="num">2</td></tr><tr><td>treat</td><td class="num">2</td></tr></table>
 <details open><summary>All 4 samples</summary>

@@ -235,7 +235,10 @@
   <tr><th>cell type</th><th class="num">estimated share of cells</th><th class="num">range over samples</th><th class="num">{{ dc.unit }} where dominant</th></tr>
   {% for t in dc.types %}<tr><td>{{ t.cell_type }}</td><td class="num">{{ t.fraction | pct }}</td><td class="num">{{ t.min | pct }}–{{ t.max | pct }}</td><td class="num">{{ t.n_dominant | count }}</td></tr>{% endfor %}
 </table></div>{% endif %}
-{% if dc.colocation %}<p class="small">Co-location groups (cell types with loading ≥ 0.2): {% for g in dc.colocation %}<strong>{{ g.group }}</strong> {% for t, w in g.top %}{{ t }}{% if w is not none %} ({{ w | num }}){% endif %}{{ ", " if not loop.last }}{% endfor %}{{ "; " if not loop.last }}{% endfor %}.</p>{% endif %}
+{% if dc.colocation %}<div class="wrap"><table>
+  <tr><th>co-location group</th><th class="num">strongest in</th><th>main cell types (NMF weight, scaled to the group's largest)</th></tr>
+  {% for g in dc.colocation %}<tr><td><strong>{{ g.group }}</strong></td><td class="num">{{ g.fraction_strongest | pct }}</td><td class="small">{% for t, w in g.top %}{{ t }}{% if w is not none %} ({{ w | num }}){% endif %}{{ "; " if not loop.last }}{% endfor %}</td></tr>{% endfor %}
+</table></div>{% endif %}
 {{ gallery(dc.figures) }}{{ omitted_note("deconvolution") }}
 {% endif %}
 {% if ct %}

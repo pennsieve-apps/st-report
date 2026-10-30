@@ -117,9 +117,25 @@ def test_workflow_b(fixtures, tmp_path, monkeypatch, layout):
     assert any("Myeloid" in o and "dominate no" in o for o in dc["observations"])
     assert any("1,000 epochs" in c for c in dc["caveats"])
     assert any("Mixed" in o for o in dc["observations"])
+    groups = {g["group"]: g for g in dc["colocation"]}
+    assert groups["G01"]["fraction_strongest"] == pytest.approx(0.5) and groups["G03"]["fraction_strongest"] == pytest.approx(0.1)
     ni = s["niches"][0]
-    assert ni["label"] == "dominant-type" and any("dominant_type keeps only" in c for c in ni["caveats"])
+    assert ni["label"] == "colocation-group" and any("co-location groups" in c for c in ni["caveats"])
+    assert any("G01 (T_cell / Stromal)" in o for o in ni["observations"])  # groups named by their main types
     assert "10.1038/s41587-021-01139-4" in [c["doi"] for c in s["citations"]]
+
+
+def test_mostly_mixed_dominant_type(fixtures, tmp_path, monkeypatch):
+    src = tmp_path / "in"
+    shutil.copytree(fixtures["b"]["linked"], src)
+    sm = json.loads((src / "deconvolution" / "summary.json").read_text())
+    sm["dominant_type_counts"] = {"B_cell": 20, "Mixed": 1980}
+    (src / "deconvolution" / "summary.json").write_text(json.dumps(sm))
+    out = tmp_path / "out"
+    assert run(src, out, monkeypatch) == 0
+    dc = summary(out)["deconvolution"]
+    assert "Mixed" in dc["caveats"][0] and "99%" in dc["caveats"][0]
+    assert not any("Dominant type" in o for o in dc["observations"])
 
 
 @pytest.mark.parametrize("layout", ["linked", "flat"])
@@ -154,7 +170,7 @@ def test_all_inputs(fixtures, tmp_path, monkeypatch):
     assert anchors(html) == ANCHORS
     s = summary(out)
     assert len(s["workflows"]) == 3 and not s["sectionErrors"]
-    assert {n["label"] for n in s["niches"]} == {"dominant-type", "cell-type"}
+    assert {n["label"] for n in s["niches"]} == {"colocation-group", "cell-type"}
     prov = json.loads((out / "report" / "provenance.json").read_text())
     assert all(prov["sections"].values())
     assert_self_contained(out)

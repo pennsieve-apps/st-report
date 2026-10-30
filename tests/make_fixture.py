@@ -4,7 +4,7 @@ A small synthetic set of upstream outputs, following the workflow contract
 
 Workflow A (Visium-like spots, 4 samples, ctrl x2 / treat x2): metadata, qc, domains,
 svg, compare/domain and compare/annotation. Workflow B (the same spots): metadata, qc,
-deconvolution (cell2location), niches/dominant-type. Workflow C (Xenium-like cells, 2
+deconvolution (cell2location), niches/colocation-group. Workflow C (Xenium-like cells, 2
 samples): metadata, qc, celltype, celltype-figures, niches/cell-type, ccc/cell-type.
 Only the summary tables, summary.json, provenance.json and tiny PNGs are written; none of
 the large per-observation files the report never reads.
@@ -213,14 +213,19 @@ def deconvolution() -> dict[str, object]:
                          "fraction_of_cells": fr[t], "n_dominant": dom[t] // 4, "fraction_dominant": dom[t] / 2000})
     coloc = pd.DataFrame([{"group": g, "cell_type": t, "weight": w} for g, ws in
                           (("G01", {"T_cell": 1.0, "Stromal": 0.5, "B_cell": 0.1, "Myeloid": 0.0}),
-                           ("G02", {"B_cell": 1.0, "Myeloid": 0.3, "T_cell": 0.0, "Stromal": 0.1}))
+                           ("G02", {"B_cell": 1.0, "Myeloid": 0.3, "T_cell": 0.0, "Stromal": 0.1}),
+                           ("G03", {"Myeloid": 1.0, "Stromal": 0.1, "T_cell": 0.0, "B_cell": 0.0}))
                           for t, w in ws.items()])
+    by_obs = pd.DataFrame([{"sample_id": s, "obs_id": f"{s}:{i}", "G01": 3.0 if i % 2 else 0.5,
+                            "G02": 0.5 if i % 2 else 2.0, "G03": 4.0 if i % 10 == 0 else 0.1}
+                           for s in SPOTS for i in range(100)])
     summary = {"n_samples": 4, "n_obs": 2000, "cell_types": DECONV_TYPES, "n_cell_types": 4,
                "reference": {"n_cells_used": 480, "n_types": 4, "dropped_types": ["Rare"]},
                "genes": {"n_matched": 154}, "mapping": {"epochs": 1000, "log1p_correlation": 0.86, "mean_cells_per_obs": 6.2},
                "dominant_type_counts": {"T_cell": 300, "B_cell": 150, "Stromal": 40, "Mixed": 60},
                "n_mixed": 60, "min_dominant_fraction": 0.4}
     files: dict[str, object] = {"type_summary.csv": pd.DataFrame(rows), "colocation.csv": coloc,
+                                "colocation_by_obs.csv": by_obs,
                                 "summary.json": summary,
                                 "provenance.json": {"app": "cell2location", "version": "0.1.0", "tools": {"cell2location": "0.1.5"},
                                                     "parameters": {"SPATIAL_EPOCHS": 1000},
@@ -339,8 +344,8 @@ def port_files(workflow: str) -> dict[str, dict[str, object]]:
         out["compare"].update({f"annotation/{k}": v for k, v in compare("annotation", ["TLS", "Tumor", "Normal"], None).items()})
     if workflow == "b":
         out["deconvolution"] = deconvolution()
-        out["niches"] = {f"dominant-type/{k}": v for k, v in
-                         niches("dominant_type", DECONV_TYPES[:3] + ["Mixed"], SPOTS, 1900, 5.9).items()}
+        out["niches"] = {f"colocation-group/{k}": v for k, v in
+                         niches("colocation_group", ["G01", "G02", "G03", "G04"], SPOTS, 1900, 5.9).items()}
     if workflow == "c":
         out["celltype"] = celltype()
         out["celltype-figures"] = celltype_figures()
